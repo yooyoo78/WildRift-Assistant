@@ -1,4 +1,4 @@
-name: Build Native APK
+name: Build LOL Assistants APK
 
 on:
   workflow_dispatch:
@@ -36,8 +36,11 @@ jobs:
           test -f app/build.gradle
           test -f app/src/main/AndroidManifest.xml
           test -f app/src/main/java/com/wildriftmetalite/MainActivity.java
+          grep -q "rootProject.name = 'LOL: Assistants'" settings.gradle
           grep -q "com.android.application" build.gradle
           grep -q "applicationId 'com.wildriftmetalite'" app/build.gradle
+          grep -q 'android:label="LOL: Assistants"' app/src/main/AndroidManifest.xml
+          grep -q "LOL: Assistants" app/src/main/res/values/strings.xml
           grep -q "MainActivity" app/src/main/AndroidManifest.xml
           if grep -RqsE 'android\.webkit\.WebView|[[:space:]]WebView[[:space:]]+[A-Za-z_][A-Za-z0-9_]*' app/src/main --include='*.java' --include='*.kt'; then
             echo 'ERROR: WebView API usage detected in native app source.'
@@ -53,6 +56,6 @@ jobs:
           ls -lh native-app/app/build/outputs/apk/debug/app-debug.apk
       - uses: actions/upload-artifact@v4
         with:
-          name: WildRiftAssistant-debug
+          name: LOL-Assistants-debug
           path: native-app/app/build/outputs/apk/debug/app-debug.apk
           if-no-files-found: error
