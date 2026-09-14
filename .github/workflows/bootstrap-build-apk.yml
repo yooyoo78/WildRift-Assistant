@@ -16,8 +16,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-java@v4
+      - uses: actions/checkout@v5
+      - uses: actions/setup-java@v5
         with:
           distribution: temurin
           java-version: '17'
@@ -36,16 +36,27 @@ jobs:
           test -f app/build.gradle
           test -f app/src/main/AndroidManifest.xml
           test -f app/src/main/java/com/wildriftmetalite/MainActivity.java
-          grep -q "rootProject.name = 'LOL: Assistants'" settings.gradle
+
+          # Gradle rejects ':', '/', '\\', '<', '>', '"', '?', '*', '|', so the
+          # build name must stay safe while Android-facing branding can use ':'.
+          grep -q "rootProject.name = 'LOL-Assistants'" settings.gradle
+          if grep -q "rootProject.name.*[:/\\\\<>\"?*|]" settings.gradle; then
+            echo 'ERROR: Invalid character detected in Gradle rootProject.name.'
+            exit 1
+          fi
+
           grep -q "com.android.application" build.gradle
           grep -q "applicationId 'com.wildriftmetalite'" app/build.gradle
           grep -q 'android:label="LOL: Assistants"' app/src/main/AndroidManifest.xml
           grep -q "LOL: Assistants" app/src/main/res/values/strings.xml
           grep -q "MainActivity" app/src/main/AndroidManifest.xml
+
+          # Detect actual WebView API/type usage, not harmless documentation text.
           if grep -RqsE 'android\.webkit\.WebView|[[:space:]]WebView[[:space:]]+[A-Za-z_][A-Za-z0-9_]*' app/src/main --include='*.java' --include='*.kt'; then
             echo 'ERROR: WebView API usage detected in native app source.'
             exit 1
           fi
+
       - name: Build APK
         working-directory: native-app
         run: gradle assembleDebug --stacktrace --no-daemon
