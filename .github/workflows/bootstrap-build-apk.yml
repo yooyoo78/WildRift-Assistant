@@ -1,34 +1,17 @@
-name: Build APK from uploaded ZIP
+name: Build Native APK
 
 on:
   workflow_dispatch:
   push:
     paths:
-      - '*.zip'
-      - '.github/workflows/build-apk.yml'
+      - 'native-app/**'
+      - '.github/workflows/bootstrap-build-apk.yml'
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Find and extract project ZIP
-        shell: bash
-        run: |
-          set -e
-          ZIP_FILE=$(find . -maxdepth 1 -type f -iname '*.zip' | head -n 1)
-          test -n "$ZIP_FILE" || { echo 'No project ZIP found in repository root.'; exit 1; }
-          rm -rf _build && mkdir _build
-          unzip -q "$ZIP_FILE" -d _build
-          ROOT=$(find _build -mindepth 1 -maxdepth 1 -type d | head -n 1)
-          if [ -n "$ROOT" ] && [ ! -f _build/settings.gradle ] && [ ! -f _build/settings.gradle.kts ]; then
-            if [ -f "$ROOT/settings.gradle" ] || [ -f "$ROOT/settings.gradle.kts" ]; then
-              shopt -s dotglob
-              mv "$ROOT"/* _build/
-              rmdir "$ROOT"
-            fi
-          fi
-          test -f _build/settings.gradle.kts || test -f _build/settings.gradle
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
@@ -39,11 +22,19 @@ jobs:
       - uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: '8.11.1'
+      - name: Validate native project
+        working-directory: native-app
+        run: |
+          test -f settings.gradle
+          test -f build.gradle
+          test -f app/build.gradle
+          test -f app/src/main/AndroidManifest.xml
+          test -f app/src/main/java/com/wildriftmetalite/MainActivity.java
       - name: Build APK
-        working-directory: _build
+        working-directory: native-app
         run: gradle assembleDebug --stacktrace --no-daemon
       - uses: actions/upload-artifact@v4
         with:
           name: WildRiftMetaLite-debug
-          path: _build/app/build/outputs/apk/debug/app-debug.apk
+          path: native-app/app/build/outputs/apk/debug/app-debug.apk
           if-no-files-found: error
