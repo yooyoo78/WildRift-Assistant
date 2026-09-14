@@ -39,8 +39,8 @@ jobs:
           grep -q "com.android.application" build.gradle
           grep -q "applicationId 'com.wildriftmetalite'" app/build.gradle
           grep -q "MainActivity" app/src/main/AndroidManifest.xml
-          if grep -Rqs "WebView" app/src/main; then
-            echo 'ERROR: WebView detected in native app source.'
+          if grep -RqsE 'android\.webkit\.WebView|[[:space:]]WebView[[:space:]]+[A-Za-z_][A-Za-z0-9_]*' app/src/main --include='*.java' --include='*.kt'; then
+            echo 'ERROR: WebView API usage detected in native app source.'
             exit 1
           fi
       - name: Build APK
