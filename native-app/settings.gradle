@@ -1,4 +1,6 @@
 pluginManagement { repositories { google(); mavenCentral(); gradlePluginPortal() } }
 dependencyResolutionManagement { repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS); repositories { google(); mavenCentral() } }
-rootProject.name = 'LOL: Assistants'
+// Gradle project names cannot contain ':'. Keep the internal build-safe name here;
+// the user-facing Android application name remains exactly "LOL: Assistants".
+rootProject.name = 'LOL-Assistants'
 include ':app'
