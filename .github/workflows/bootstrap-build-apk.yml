@@ -37,10 +37,10 @@ jobs:
           test -f app/src/main/AndroidManifest.xml
           test -f app/src/main/java/com/wildriftmetalite/MainActivity.java
 
-          # Gradle rejects ':', '/', '\\', '<', '>', '"', '?', '*', '|', so the
-          # build name must stay safe while Android-facing branding can use ':'.
-          grep -q "rootProject.name = 'LOL-Assistants'" settings.gradle
-          if grep -q "rootProject.name.*[:/\\\\<>\"?*|]" settings.gradle; then
+          # Read only the actual rootProject.name assignment; comments must not affect validation.
+          ROOT_NAME=$(sed -n "s/^rootProject\.name[[:space:]]*=[[:space:]]*['\"]\(.*\)['\"][[:space:]]*$/\1/p" settings.gradle)
+          test "$ROOT_NAME" = "LOL-Assistants"
+          if printf '%s' "$ROOT_NAME" | grep -qE '[:/\\<>"?*|]'; then
             echo 'ERROR: Invalid character detected in Gradle rootProject.name.'
             exit 1
           fi
