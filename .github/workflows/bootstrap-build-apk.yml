@@ -3,9 +3,14 @@ name: Build Native APK
 on:
   workflow_dispatch:
   push:
+    branches:
+      - v2-native-ui
     paths:
       - 'native-app/**'
       - '.github/workflows/bootstrap-build-apk.yml'
+
+permissions:
+  contents: read
 
 jobs:
   build:
@@ -25,16 +30,29 @@ jobs:
       - name: Validate native project
         working-directory: native-app
         run: |
+          set -e
           test -f settings.gradle
           test -f build.gradle
           test -f app/build.gradle
           test -f app/src/main/AndroidManifest.xml
           test -f app/src/main/java/com/wildriftmetalite/MainActivity.java
+          grep -q "com.android.application" build.gradle
+          grep -q "applicationId 'com.wildriftmetalite'" app/build.gradle
+          grep -q "MainActivity" app/src/main/AndroidManifest.xml
+          if grep -Rqs "WebView" app/src/main; then
+            echo 'ERROR: WebView detected in native app source.'
+            exit 1
+          fi
       - name: Build APK
         working-directory: native-app
         run: gradle assembleDebug --stacktrace --no-daemon
+      - name: Verify APK output
+        run: |
+          set -e
+          test -s native-app/app/build/outputs/apk/debug/app-debug.apk
+          ls -lh native-app/app/build/outputs/apk/debug/app-debug.apk
       - uses: actions/upload-artifact@v4
         with:
-          name: WildRiftMetaLite-debug
+          name: WildRiftAssistant-debug
           path: native-app/app/build/outputs/apk/debug/app-debug.apk
           if-no-files-found: error
