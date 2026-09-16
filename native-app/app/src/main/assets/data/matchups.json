@@ -1,0 +1,11 @@
+{
+  "patch": "7.2e-reference",
+  "source": ["Wild Rift Core", "WR-META", "WildRiftFire", "Wild Rift Guides"],
+  "updatedAt": "2026-09-16",
+  "coverage": "rule-seed",
+  "matchups": [
+    {"playerChampion":"ahri","enemyChampion":"akali","role":"MID","verdict":"THREAT","rationale":"Respect assassin access and burst windows.","itemTriggers":["MR","REVIVE"],"gameplay":["Hold charm for committed entry.","Track shroud and ultimate timing."]},
+    {"playerChampion":"caitlyn","enemyChampion":"rammus","role":"ADC","verdict":"THREAT","rationale":"Armor and anti-auto profile reduces basic-attack value.","itemTriggers":["ARMOR_PEN"],"gameplay":["Avoid overcommitting into frontline armor."]},
+    {"playerChampion":"jinx","enemyChampion":"leona","role":"ADC","verdict":"THREAT","rationale":"Layered crowd control creates an engage threat.","itemTriggers":["CC_RESIST"],"gameplay":["Track primary engage before stepping forward."]}
+  ]
+}
