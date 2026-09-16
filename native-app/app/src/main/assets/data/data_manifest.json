@@ -1,0 +1,24 @@
+{
+  "schemaVersion": "1.0",
+  "datasetVersion": "7.2e-reference-2026-09-16",
+  "patch": "7.2e-reference",
+  "updatedAt": "2026-09-16",
+  "coverage": "reference-subset",
+  "sources": [
+    "Wild Rift Core",
+    "Wild Rift Build",
+    "Wild Rift Meta",
+    "WR-META",
+    "WildRiftFire",
+    "Wild Rift Guides"
+  ],
+  "files": [
+    "champions.json",
+    "items.json",
+    "runes.json",
+    "matchups.json",
+    "team_rules.json",
+    "macro_rules.json"
+  ],
+  "runtimePolicy": "offline-first; patch snapshots must not be silently merged"
+}
