@@ -8,7 +8,7 @@ import java.util.Locale;
 
 /** Offline decision engine for team-aware counter item recommendations. */
 public final class CounterEngine {
-    public static final String VERSION = "0.2";
+    public static final String VERSION = "0.2.1";
 
     public static final class ThreatProfile {
         public boolean healing;
@@ -36,11 +36,23 @@ public final class CounterEngine {
             assassin |= has(s, "assassin", "นักฆ่า", "ล้วง");
             frontline |= has(s, "tank", "frontline", "แนวหน้า");
             autoAttack |= has(s, "auto", "attack", "basic", "marksman", "โจมตีปกติ");
+            mixedDamage |= has(s, "mixed", "ad/ap", "ap/ad", "ผสม");
         }
 
         private static boolean has(String s, String... keys) {
             for (String k : keys) if (s.contains(k)) return true;
             return false;
+        }
+    }
+
+    /** Small adapter model used by the native UI item catalog. */
+    public static final class ItemData {
+        public final String name;
+        public final String tags;
+
+        public ItemData(String name, String tags) {
+            this.name = name;
+            this.tags = tags == null ? "" : tags;
         }
     }
 
@@ -55,9 +67,20 @@ public final class CounterEngine {
 
     private CounterEngine() {}
 
+    /** Native UI overload: scores ItemData records against the complete threat profile. */
+    public static List<Candidate> rank(ThreatProfile profile, List<ItemData> itemCatalog) {
+        if (profile == null || itemCatalog == null) return Collections.emptyList();
+        List<String[]> rows = new ArrayList<>();
+        for (ItemData item : itemCatalog) {
+            if (item == null) continue;
+            rows.add(new String[]{item.name, item.tags});
+        }
+        return rank(rows, profile, profile.mixedDamage);
+    }
+
     /** Scores item tags against the complete enemy threat profile. */
     public static List<Candidate> rank(List<String[]> itemCatalog, ThreatProfile profile, boolean mixedDamage) {
-        if (itemCatalog == null) return Collections.emptyList();
+        if (itemCatalog == null || profile == null) return Collections.emptyList();
         profile.mixedDamage |= mixedDamage;
         List<Candidate> result = new ArrayList<>();
         for (String[] row : itemCatalog) {
