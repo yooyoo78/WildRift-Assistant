@@ -9,11 +9,12 @@
     "items": "identity-reference-106; combat-tags-partial-11; source-reported-catalog-109",
     "runes": "reference-name-subset",
     "matchups": "source-verified-counter-subset-24",
+    "rune_recommendations": "source-verified-champion-subset-9",
     "team_rules": "decision-rules",
     "macro_rules": "decision-rules"
   },
   "sources": ["Wild Rift Core","Wild Rift Meta","WR-META","WildRiftFire","Wild Rift Guides"],
-  "files": ["champions.json","items.json","runes.json","matchups.json","team_rules.json","macro_rules.json"],
+  "files": ["champions.json","items.json","runes.json","rune_recommendations.json","matchups.json","team_rules.json","macro_rules.json"],
   "runtimePolicy": "offline-first; patch snapshots must not be silently merged; incomplete reference subsets must not be presented as complete roster data",
   "verificationNotes": [
     "Current external references identify Patch 7.2e as the active snapshot.",
@@ -21,6 +22,6 @@
     "champions.json now contains all 141 source-listed champion identities; only the existing 20 records retain combat traits, while the other 121 records intentionally carry no inferred roles, damage types, or tags.",
     "items.json now contains 106 captured item identities; 11 records retain validated combat tags and 95 records are identity-only pending same-snapshot cross-source verification.",
     "matchups.json now contains 24 edges, including 21 counter relationships taken from current Patch 7.2e WildRiftFire champion guides; it is intentionally not presented as a complete counter graph.",
-    "Rune names in runes.json were replaced with source-verified names; champion-specific rune recommendations remain pending validation."
+    "rune_recommendations.json now contains 9 current Patch 7.2e champion-role rune presets sourced from WildRiftFire; it is intentionally not presented as a complete champion rune database."
   ]
 }
