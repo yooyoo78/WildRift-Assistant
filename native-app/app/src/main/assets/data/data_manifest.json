@@ -5,32 +5,20 @@
   "updatedAt": "2026-09-16",
   "coverage": "reference-subset",
   "completeness": {
-    "champions": "partial-reference-subset",
+    "champions": "identity-complete-141; combat-traits-partial-20",
     "items": "partial-reference-subset",
     "runes": "reference-name-subset",
     "matchups": "rule-seed-subset",
     "team_rules": "decision-rules",
     "macro_rules": "decision-rules"
   },
-  "sources": [
-    "Wild Rift Core",
-    "Wild Rift Meta",
-    "WR-META",
-    "WildRiftFire",
-    "Wild Rift Guides"
-  ],
-  "files": [
-    "champions.json",
-    "items.json",
-    "runes.json",
-    "matchups.json",
-    "team_rules.json",
-    "macro_rules.json"
-  ],
+  "sources": ["Wild Rift Core","Wild Rift Meta","WR-META","WildRiftFire","Wild Rift Guides"],
+  "files": ["champions.json","items.json","runes.json","matchups.json","team_rules.json","macro_rules.json"],
   "runtimePolicy": "offline-first; patch snapshots must not be silently merged; incomplete reference subsets must not be presented as complete roster data",
   "verificationNotes": [
     "Current external references identify Patch 7.2e as the active snapshot.",
-    "Wild Rift Core currently reports 141 champions and 109 items; the bundled champion/item files are intentionally smaller reference subsets until full records are verified.",
+    "Wild Rift Core currently reports 141 champions and 109 items.",
+    "champions.json now contains all 141 source-listed champion identities; only the existing 20 records retain verified combat traits, while the other 121 records intentionally carry no inferred roles, damage types, or tags.",
     "Rune names in runes.json were replaced with source-verified names; champion-specific rune recommendations remain pending validation."
   ]
 }
