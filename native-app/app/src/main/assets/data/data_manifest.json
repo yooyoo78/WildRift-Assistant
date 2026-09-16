@@ -5,8 +5,8 @@
   "updatedAt": "2026-09-16",
   "coverage": "reference-subset",
   "completeness": {
-    "champions": "identity-complete-141; combat-traits-partial-20",
-    "items": "identity-reference-106; combat-tags-partial-11; source-reported-catalog-109",
+    "champions": "identity-complete-141 via base-138 plus verified-overrides-3; combat-traits-20",
+    "items": "identity-reference-105; combat-tags-partial-11; source-reported-catalog-109",
     "runes": "reference-name-subset",
     "matchups": "source-verified-counter-subset-24",
     "rune_recommendations": "source-verified-champion-subset-9",
@@ -14,14 +14,14 @@
     "macro_rules": "decision-rules"
   },
   "sources": ["Wild Rift Core","Wild Rift Meta","WR-META","WildRiftFire","Wild Rift Guides"],
-  "files": ["champions.json","items.json","runes.json","rune_recommendations.json","matchups.json","team_rules.json","macro_rules.json"],
+  "files": ["champions.json","champion_overrides.json","items.json","runes.json","rune_recommendations.json","matchups.json","team_rules.json","macro_rules.json"],
   "runtimePolicy": "offline-first; patch snapshots must not be silently merged; incomplete reference subsets must not be presented as complete roster data",
   "verificationNotes": [
     "Current external references identify Patch 7.2e as the active snapshot.",
-    "Wild Rift Core currently reports 141 champions and a 109-item site catalog; the current WildRiftFire 7.2e item-list search snapshot exposed 103 names, and the existing dataset adds 3 additional validated identities, yielding 106 captured identities without claiming the catalog is complete.",
-    "champions.json now contains all 141 source-listed champion identities; only the existing 20 records retain combat traits, while the other 121 records intentionally carry no inferred roles, damage types, or tags.",
-    "items.json now contains 106 captured item identities; 11 records retain validated combat tags and 95 records are identity-only pending same-snapshot cross-source verification.",
+    "Wild Rift Core currently reports 141 champions and a 109-item site catalog; the runtime champion roster is assembled from the 138-record base snapshot plus three separately verified champion overrides.",
+    "The current WildRiftFire 7.2e item-list search snapshot exposed 103 names; after deduplicating the existing Lord Dominik's Regards spelling variant and retaining the 3 existing validated identities, the runtime item catalog contains 105 unique identities without claiming the 109-item site catalog is complete.",
+    "champion_overrides.json restores Lux, Morgana and Thresh as verified current-patch combat/role records without silently inventing traits for other identity-only champions.",
     "matchups.json now contains 24 edges, including 21 counter relationships taken from current Patch 7.2e WildRiftFire champion guides; it is intentionally not presented as a complete counter graph.",
-    "rune_recommendations.json now contains 9 current Patch 7.2e champion-role rune presets sourced from WildRiftFire; it is intentionally not presented as a complete champion rune database."
+    "rune_recommendations.json contains 9 current Patch 7.2e champion-role rune presets sourced from WildRiftFire; it is intentionally not presented as a complete champion rune database."
   ]
 }
