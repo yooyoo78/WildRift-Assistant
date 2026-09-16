@@ -8,7 +8,7 @@
     "champions": "identity-complete-141; combat-traits-partial-20",
     "items": "identity-reference-106; combat-tags-partial-11; source-reported-catalog-109",
     "runes": "reference-name-subset",
-    "matchups": "rule-seed-subset",
+    "matchups": "source-verified-counter-subset-24",
     "team_rules": "decision-rules",
     "macro_rules": "decision-rules"
   },
@@ -20,6 +20,7 @@
     "Wild Rift Core currently reports 141 champions and a 109-item site catalog; the current WildRiftFire 7.2e item-list search snapshot exposed 103 names, and the existing dataset adds 3 additional validated identities, yielding 106 captured identities without claiming the catalog is complete.",
     "champions.json now contains all 141 source-listed champion identities; only the existing 20 records retain combat traits, while the other 121 records intentionally carry no inferred roles, damage types, or tags.",
     "items.json now contains 106 captured item identities; 11 records retain validated combat tags and 95 records are identity-only pending same-snapshot cross-source verification.",
+    "matchups.json now contains 24 edges, including 21 counter relationships taken from current Patch 7.2e WildRiftFire champion guides; it is intentionally not presented as a complete counter graph.",
     "Rune names in runes.json were replaced with source-verified names; champion-specific rune recommendations remain pending validation."
   ]
 }
