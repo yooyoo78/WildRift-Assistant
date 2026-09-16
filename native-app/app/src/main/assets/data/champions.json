@@ -1,0 +1,28 @@
+{
+  "patch": "7.2e-reference",
+  "source": ["Wild Rift Core", "WR-META", "WildRiftFire", "Wild Rift Guides"],
+  "updatedAt": "2026-09-16",
+  "coverage": "reference-subset",
+  "champions": [
+    {"id":"ahri","name":"Ahri","roles":["MID"],"damageType":"AP","tags":["BURST","CC"],"description":"Mobile mage with charm and burst windows."},
+    {"id":"yasuo","name":"Yasuo","roles":["MID"],"damageType":"AD","tags":["CRIT","DASH"],"description":"Dueling skirmisher with high mobility."},
+    {"id":"akali","name":"Akali","roles":["MID"],"damageType":"AP","tags":["ASSASSIN","BURST"],"description":"Assassin with burst and backline access."},
+    {"id":"orianna","name":"Orianna","roles":["MID"],"damageType":"AP","tags":["CC","AOE"],"description":"Control mage with zone control and teamfight utility."},
+    {"id":"lux","name":"Lux","roles":["MID","SUPPORT"],"damageType":"AP","tags":["CC","BURST","SHIELD"],"description":"Long-range control mage with shield and bind."},
+    {"id":"morgana","name":"Morgana","roles":["MID","SUPPORT"],"damageType":"AP","tags":["CC","SHIELD"],"description":"Zone control with binding and magic shield."},
+    {"id":"malphite","name":"Malphite","roles":["TOP"],"damageType":"AP/ARMOR","tags":["ENGAGE","CC","FRONTLINE"],"description":"Frontline engage tank with strong teamfight initiation."},
+    {"id":"darius","name":"Darius","roles":["TOP"],"damageType":"AD","tags":["HEAL","FRONTLINE"],"description":"Bruiser with sustained damage and healing."},
+    {"id":"rammus","name":"Rammus","roles":["JUNGLE"],"damageType":"ARMOR","tags":["CC","FRONTLINE","ANTI_AUTO"],"description":"Armor-heavy initiator that punishes basic attacks."},
+    {"id":"lee-sin","name":"Lee Sin","roles":["JUNGLE"],"damageType":"AD","tags":["DASH","BURST","ENGAGE"],"description":"Early pressure jungler with mobility and engage."},
+    {"id":"khazix","name":"Kha'Zix","roles":["JUNGLE"],"damageType":"AD","tags":["ASSASSIN","BURST"],"description":"Isolation-focused assassin with high burst."},
+    {"id":"kaisa","name":"Kai'Sa","roles":["ADC"],"damageType":"AD/AP","tags":["CRIT","BURST"],"description":"Scaling marksman with mixed damage potential."},
+    {"id":"jinx","name":"Jinx","roles":["ADC"],"damageType":"AD","tags":["CRIT","AOE"],"description":"Scaling marksman with high teamfight DPS."},
+    {"id":"caitlyn","name":"Caitlyn","roles":["ADC"],"damageType":"AD","tags":["POKE","CRIT"],"description":"Long-range marksman with lane pressure."},
+    {"id":"thresh","name":"Thresh","roles":["SUPPORT"],"damageType":"AD","tags":["CC","ENGAGE","PEEL"],"description":"Playmaking support with hook and lantern utility."},
+    {"id":"leona","name":"Leona","roles":["SUPPORT"],"damageType":"TANK","tags":["CC","ENGAGE","FRONTLINE"],"description":"Hard-engage tank support with layered CC."},
+    {"id":"garen","name":"Garen","roles":["TOP"],"damageType":"AD","tags":["FRONTLINE","BRUISER"],"description":"Durable fighter with execute threat."},
+    {"id":"vayne","name":"Vayne","roles":["ADC","TOP"],"damageType":"AD","tags":["TRUE_DAMAGE","DUEL"],"description":"Scaling duelist that shreds durable targets."},
+    {"id":"seraphine","name":"Seraphine","roles":["MID","SUPPORT"],"damageType":"AP","tags":["CC","SHIELD","AOE"],"description":"Teamfight mage with CC and shielding."},
+    {"id":"dr-mundo","name":"Dr. Mundo","roles":["TOP","JUNGLE"],"damageType":"AD","tags":["HEAL","FRONTLINE","HP"],"description":"High-health frontline with strong regeneration."}
+  ]
+}
