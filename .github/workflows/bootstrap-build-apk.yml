@@ -46,6 +46,14 @@ jobs:
           test -f app/build.gradle
           test -f app/src/main/AndroidManifest.xml
           test -f app/src/main/java/com/wildriftmetalite/MainActivity.java
+          test -f app/src/main/java/com/wildriftmetalite/OfflineDataRepository.java
+          test -f app/src/main/assets/data/data_manifest.json
+          test -f app/src/main/assets/data/champions.json
+          test -f app/src/main/assets/data/items.json
+          test -f app/src/main/assets/data/runes.json
+          test -f app/src/main/assets/data/matchups.json
+          test -f app/src/main/assets/data/team_rules.json
+          test -f app/src/main/assets/data/macro_rules.json
 
           ROOT_NAME=$(sed -n "s/^rootProject\.name[[:space:]]*=[[:space:]]*['\"]\(.*\)['\"][[:space:]]*$/\1/p" settings.gradle)
           test "$ROOT_NAME" = "LOL-Assistants"
@@ -59,6 +67,20 @@ jobs:
           grep -q 'android:label="LOL: Assistants"' app/src/main/AndroidManifest.xml
           grep -q "LOL: Assistants" app/src/main/res/values/strings.xml
           grep -q "MainActivity" app/src/main/AndroidManifest.xml
+          grep -q "org.json" app/src/main/java/com/wildriftmetalite/OfflineDataRepository.java
+
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          root = Path('app/src/main/assets/data')
+          manifest = json.loads((root / 'data_manifest.json').read_text())
+          assert manifest['patch'] == '7.2e-reference'
+          for name in manifest['files']:
+              obj = json.loads((root / name).read_text())
+              assert obj['patch'] == manifest['patch'], name
+              assert obj['updatedAt'] == manifest['updatedAt'], name
+          print('Structured offline data JSON validation: PASS')
+          PY
 
           if grep -RqsE 'android\.webkit\.WebView|[[:space:]]WebView[[:space:]]+[A-Za-z_][A-Za-z0-9_]*' app/src/main --include='*.java' --include='*.kt'; then
             echo 'ERROR: WebView API usage detected in native app source.'
