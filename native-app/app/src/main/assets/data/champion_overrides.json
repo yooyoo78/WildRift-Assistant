@@ -1,0 +1,11 @@
+{
+  "patch": "7.2e-reference",
+  "source": ["WildRiftFire", "Wild Rift Core"],
+  "updatedAt": "2026-09-16",
+  "coverage": "verified-identity-and-combat-overrides",
+  "champions": [
+    {"id":"lux","name":"Lux","roles":["MID","SUPPORT"],"damageType":"AP","tags":["CC","BURST","SHIELD"],"description":"Long-range mage support with crowd control and shielding.","verificationStatus":"combat-traits-verified-subset"},
+    {"id":"morgana","name":"Morgana","roles":["MID","SUPPORT"],"damageType":"AP","tags":["CC","SHIELD"],"description":"Control mage with binding and magic-shield utility.","verificationStatus":"combat-traits-verified-subset"},
+    {"id":"thresh","name":"Thresh","roles":["SUPPORT"],"damageType":"AD","tags":["CC","ENGAGE","PEEL"],"description":"Playmaking support with layered crowd control and peel.","verificationStatus":"combat-traits-verified-subset"}
+  ]
+}
