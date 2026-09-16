@@ -1,0 +1,17 @@
+{
+  "patch": "7.2e-reference",
+  "source": ["WildRiftFire"],
+  "updatedAt": "2026-09-16",
+  "coverage": "source-verified-champion-rune-subset",
+  "recommendations": [
+    {"championId":"brand","role":"MID","runes":["Electrocute","Axiom Arcanist","Transcendence","Scorch","Bone Plating"],"source":"WildRiftFire Patch 7.2e Brand guide"},
+    {"championId":"karma","role":"SUPPORT","runes":["Arcane Comet","Manaflow Band","Transcendence","Scorch","Bone Plating"],"source":"WildRiftFire Patch 7.2e Karma guide"},
+    {"championId":"lux","role":"SUPPORT","runes":["Arcane Comet","Manaflow Band","Transcendence","Scorch","Bone Plating"],"source":"WildRiftFire Patch 7.2e Lux guide"},
+    {"championId":"morgana","role":"SUPPORT","runes":["Arcane Comet","Manaflow Band","Transcendence","Scorch","Bone Plating"],"source":"WildRiftFire Patch 7.2e Morgana guide"},
+    {"championId":"zyra","role":"SUPPORT","runes":["Arcane Comet","Manaflow Band","Transcendence","Scorch","Bone Plating"],"source":"WildRiftFire Patch 7.2e Zyra guide"},
+    {"championId":"sett","role":"TOP","runes":["Conqueror","Demolish","Second Wind","Overgrowth","Battle Zeal"],"source":"WildRiftFire Patch 7.2e Sett guide"},
+    {"championId":"graves","role":"JUNGLE","runes":["Fleet Footwork","Brutal","Cut Down","Legend: Alacrity","Bone Plating"],"source":"WildRiftFire Patch 7.2e Graves guide"},
+    {"championId":"kennen","role":"TOP","runes":["Electrocute","Battle Zeal","Cut Down","Legend: Bloodline","Bone Plating"],"source":"WildRiftFire Patch 7.2e Kennen guide"},
+    {"championId":"nunu-willump","role":"JUNGLE","runes":["Ice Overlord","Courage of the Colossus","Bone Plating","Overgrowth","Transcendence"],"source":"WildRiftFire Patch 7.2e Nunu & Willump guide"}
+  ]
+}
