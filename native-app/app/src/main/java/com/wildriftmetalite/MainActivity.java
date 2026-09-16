@@ -8,9 +8,7 @@ import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,12 +17,14 @@ import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
 
 public class MainActivity extends Activity {
@@ -34,6 +34,8 @@ public class MainActivity extends Activity {
     private static final int ACCENT = Color.rgb(72, 207, 220);
     private static final int TEXT = Color.rgb(245, 248, 250);
     private static final int MUTED = Color.rgb(155, 166, 178);
+    private static final String DATA_PATCH = "7.2e-reference";
+    private static final String DATA_SOURCE = "Wild Rift Core / Wild Rift Build / Wild Rift Meta / Wild Rift Guides";
 
     private final List<String> roles = Arrays.asList("MID", "TOP", "JGL", "ADC", "SUP");
     private final List<Champion> champions = new ArrayList<>();
@@ -85,7 +87,6 @@ public class MainActivity extends Activity {
         items.add(new Item("Spirit Visage", "MR,HEAL", "เพิ่มความถึกเวทและการฟื้นฟู"));
         items.add(new Item("Executioner's Calling", "ANTI_HEAL", "ทางเลือกต้นเกมเพื่อลดการฮีล"));
         items.add(new Item("Serylda's Grudge", "ARMOR_PEN,SLOW", "เจาะเกราะและเพิ่มการควบคุมด้วย Slow"));
-        items.add(new Item("Amumu's Counterweight", "ARMOR,HP", "ไอเทมตัวอย่างสำหรับแนวหน้า"));
     }
 
     private void showTab(int tab) {
@@ -111,15 +112,14 @@ public class MainActivity extends Activity {
     }
 
     private void home(LinearLayout c) {
-        header(c, "WILD RIFT", "ASSISTANT");
-        card(c, "Offline-first • Native Android", thai ? "ศูนย์ช่วยตัดสินใจสำหรับเกมจริง ใช้ข้อมูลในเครื่อง ไม่ต้องเปิด WebView" : "A native offline-first companion for real match decisions.");
-        TextView h = section(c, thai ? "เครื่องมือหลัก" : "CORE TOOLS");
-        add(c, h);
+        header(c, "LOL: ASSISTANTS", thai ? "OFFLINE-FIRST • NATIVE ANDROID" : "OFFLINE-FIRST • NATIVE ANDROID");
+        card(c, "PHASE 2", thai ? "Counter แบบทีม 5 คน + Role-aware filtering + Threat-aware item scoring" : "5-enemy team counter + role-aware filtering + threat-aware item scoring");
+        add(c, section(c, thai ? "เครื่องมือหลัก" : "CORE TOOLS"));
         add(c, actionCard("COUNTER", thai ? "แก้ทางแชมป์ + ทีม + ไอเทม" : "Champion + team + item counters", 1));
         add(c, actionCard("BUILD", thai ? "แนะนำไอเทมตามภัยคุกคาม" : "Threat-aware item recommendations", 2));
         add(c, actionCard("CHAMPIONS", thai ? "ค้นหาและดูรายละเอียดแชมป์" : "Search and inspect champions", 3));
         add(c, section(c, thai ? "สถานะระบบ" : "SYSTEM"));
-        TextView status = text((thai ? "✓ Native UI\n✓ Offline data\n✓ Counter engine\n✓ TH/EN switch\n✓ No WebView" : "✓ Native UI\n✓ Offline data\n✓ Counter engine\n✓ TH/EN switch\n✓ No WebView"), 14, MUTED);
+        TextView status = text("✓ Native UI\n✓ Offline data\n✓ Team counter 5 slots\n✓ Role-aware filtering\n✓ CounterEngine " + CounterEngine.VERSION + "\n✓ TH/EN switch\n✓ No WebView\n\nData: " + DATA_PATCH + "\nSources: " + DATA_SOURCE, 13, MUTED);
         cardView(c, status);
         Button lang = button(thai ? "ภาษา: ไทย  →  English" : "Language: English  →  ไทย");
         lang.setOnClickListener(v -> { thai = !thai; prefs.edit().putBoolean("thai", thai).apply(); showTab(0); });
@@ -127,42 +127,107 @@ public class MainActivity extends Activity {
     }
 
     private void counter(LinearLayout c) {
-        header(c, thai ? "COUNTER CENTER" : "COUNTER CENTER", thai ? "แก้ทางแบบครบระบบ" : "Full counter system");
-        add(c, fieldLabel(thai ? "ตำแหน่ง" : "ROLE"));
+        header(c, "COUNTER CENTER", thai ? "วิเคราะห์ทีมศัตรูครบ 5 ช่อง" : "Analyze the full 5-player enemy team");
+        add(c, fieldLabel(thai ? "ตำแหน่งของเรา" : "YOUR ROLE"));
         Spinner role = spinner(roles.toArray(new String[0])); add(c, role);
         add(c, fieldLabel(thai ? "แชมป์ของเรา" : "YOUR CHAMPION"));
-        Spinner me = spinner(names(champions)); add(c, me);
-        add(c, fieldLabel(thai ? "แชมป์ศัตรูหลัก" : "MAIN ENEMY"));
-        Spinner enemy = spinner(names(champions)); add(c, enemy);
-        add(c, fieldLabel(thai ? "ไอเทมศัตรูที่ต้องการแก้" : "ENEMY ITEM"));
+        Spinner me = spinner(championNamesForRole("MID")); add(c, me);
+        role.setOnItemSelectedListener(new android.widget.AdapterView.OnItemSelectedListener() {
+            public void onNothingSelected(android.widget.AdapterView<?> parent) {}
+            public void onItemSelected(android.widget.AdapterView<?> parent, View view, int position, long id) {
+                String selectedRole = roles.get(position);
+                setSpinnerValues(me, championNamesForRole(selectedRole));
+            }
+        });
+
+        add(c, section(c, thai ? "ทีมศัตรู • 5 ช่อง • ห้ามซ้ำ" : "ENEMY TEAM • 5 SLOTS • NO DUPLICATES"));
+        Spinner[] enemyRole = new Spinner[5];
+        Spinner[] enemyPick = new Spinner[5];
+        for (int i = 0; i < 5; i++) {
+            add(c, fieldLabel((thai ? "ศัตรู " : "ENEMY ") + (i + 1) + " • ROLE"));
+            enemyRole[i] = spinner(roles.toArray(new String[0]));
+            enemyRole[i].setSelection(i < roles.size() ? i : 0);
+            add(c, enemyRole[i]);
+            add(c, fieldLabel(thai ? "แชมป์" : "CHAMPION"));
+            enemyPick[i] = spinner(championNamesForRole(roles.get(enemyRole[i].getSelectedItemPosition())));
+            add(c, enemyPick[i]);
+            final int slot = i;
+            enemyRole[i].setOnItemSelectedListener(new android.widget.AdapterView.OnItemSelectedListener() {
+                public void onNothingSelected(android.widget.AdapterView<?> parent) {}
+                public void onItemSelected(android.widget.AdapterView<?> parent, View view, int position, long id) {
+                    setSpinnerValues(enemyPick[slot], championNamesForRole(roles.get(position)));
+                    ensureNoDuplicate(enemyPick, slot);
+                }
+            });
+            enemyPick[i].setOnItemSelectedListener(new android.widget.AdapterView.OnItemSelectedListener() {
+                public void onNothingSelected(android.widget.AdapterView<?> parent) {}
+                public void onItemSelected(android.widget.AdapterView<?> parent, View view, int position, long id) {
+                    ensureNoDuplicate(enemyPick, slot);
+                }
+            });
+        }
+
+        add(c, fieldLabel(thai ? "ไอเทมศัตรูที่ต้องการแก้" : "ENEMY ITEM TO COUNTER"));
         Spinner enemyItem = spinner(itemNames(items)); add(c, enemyItem);
-        add(c, section(c, thai ? "ภัยคุกคามในทีมศัตรู" : "ENEMY TEAM THREATS"));
-        EditText threats = edit(thai ? "เช่น heal, shield, AP burst, tank, assassin" : "e.g. heal, shield, AP burst, tank, assassin"); add(c, threats);
+        add(c, fieldLabel(thai ? "ภัยคุกคามเพิ่มเติม" : "ADDITIONAL TEAM THREATS"));
+        EditText threats = edit(thai ? "เช่น heal, shield, AP burst, tank, assassin, CC" : "e.g. heal, shield, AP burst, tank, assassin, CC"); add(c, threats);
         Button analyze = button(thai ? "วิเคราะห์ COUNTER BUILD" : "ANALYZE COUNTER BUILD"); add(c, analyze);
         TextView result = text("", 14, TEXT); cardView(c, result);
+
         analyze.setOnClickListener(v -> {
-            Champion a = champions.get(me.getSelectedItemPosition());
-            Champion e = champions.get(enemy.getSelectedItemPosition());
-            Item ei = items.get(enemyItem.getSelectedItemPosition());
-            String t = threats.getText().toString().toLowerCase();
-            List<ItemScore> scores = recommend(a, e, ei, t);
-            StringBuilder s = new StringBuilder();
-            s.append(thai ? "ผลวิเคราะห์\n\n" : "ANALYSIS\n\n");
-            s.append(thai ? "คู่เลน: " : "MATCHUP: ").append(a.name).append(" vs ").append(e.name).append("\n");
-            s.append(thai ? "ภัยหลัก: " : "MAIN THREAT: ").append(e.damageType).append(" • ").append(e.tags).append("\n\n");
-            for (int i = 0; i < Math.min(5, scores.size()); i++) {
-                ItemScore x = scores.get(i);
-                s.append(i + 1).append(". ").append(x.item.name).append("  •  ").append(x.score).append("\n");
-                s.append("   ").append(x.reason).append("\n");
+            Set<String> unique = new HashSet<>();
+            List<Champion> enemies = new ArrayList<>();
+            boolean duplicate = false;
+            for (Spinner pick : enemyPick) {
+                String n = String.valueOf(pick.getSelectedItem());
+                if (!unique.add(n)) duplicate = true;
+                Champion found = findChampion(n);
+                if (found != null) enemies.add(found);
             }
-            s.append("\n").append(thai ? "วิธีเล่น: " : "PLAY TIP: ");
-            s.append(playTip(a, e));
+            if (duplicate) {
+                result.setText(thai ? "กรุณาเลือกแชมป์ศัตรูไม่ให้ซ้ำกันทั้ง 5 ช่อง" : "Please choose five different enemy champions.");
+                return;
+            }
+            Champion our = findChampion(String.valueOf(me.getSelectedItem()));
+            Item selectedEnemyItem = items.get(enemyItem.getSelectedItemPosition());
+            CounterEngine.ThreatProfile profile = new CounterEngine.ThreatProfile();
+            StringBuilder threatText = new StringBuilder(threats.getText().toString());
+            for (Champion e : enemies) threatText.append(' ').append(e.tags).append(' ').append(e.damageType).append(' ').append(e.name);
+            threatText.append(' ').append(selectedEnemyItem.tags);
+            profile.absorb(threatText.toString());
+            boolean mixed = false;
+            for (Champion e : enemies) if (e.damageType.contains("MAGIC_PHYSICAL")) mixed = true;
+
+            List<String[]> catalog = new ArrayList<>();
+            for (Item item : items) catalog.add(new String[]{item.name, item.tags});
+            List<CounterEngine.Candidate> ranked = CounterEngine.rank(catalog, profile, mixed);
+
+            StringBuilder s = new StringBuilder();
+            s.append(thai ? "ผลวิเคราะห์ทีม\n\n" : "TEAM ANALYSIS\n\n");
+            s.append(thai ? "เรา: " : "US: ").append(our == null ? "-" : our.name).append("\n");
+            s.append(thai ? "ศัตรู: " : "ENEMIES: ");
+            for (int i = 0; i < enemies.size(); i++) {
+                if (i > 0) s.append(" • ");
+                s.append(enemies.get(i).name);
+            }
+            s.append("\n\n");
+            s.append(thai ? "Threat Profile: " : "Threat Profile: ");
+            s.append(threatFlags(profile)).append("\n\n");
+            s.append(thai ? "ไอเทมที่เข้ากับภัยรวม:\n" : "ITEMS MATCHING TEAM THREATS:\n");
+            for (int i = 0; i < Math.min(6, ranked.size()); i++) {
+                CounterEngine.Candidate x = ranked.get(i);
+                s.append(i + 1).append(". ").append(x.name).append(" • ").append(String.format(Locale.US, "%.1f", x.score)).append("\n");
+                if (!x.reasons.isEmpty()) s.append("   ").append(String.join(" + ", x.reasons)).append("\n");
+            }
+            s.append("\n").append(thai ? "แผนการเล่น:\n" : "GAMEPLAY PLAN:\n");
+            s.append(teamPlayTip(enemies));
+            s.append("\n\n").append(thai ? "ข้อมูล: " : "DATA: ").append(DATA_PATCH).append(" • ").append(DATA_SOURCE);
             result.setText(s.toString());
         });
     }
 
     private void build(LinearLayout c) {
-        header(c, thai ? "BUILD LAB" : "BUILD LAB", thai ? "เริ่มจากแชมป์ แล้วปรับตามศัตรู" : "Start from your champion, then adapt to threats");
+        header(c, "BUILD LAB", thai ? "เริ่มจากแชมป์ แล้วปรับตามภัยจริง" : "Start from your champion, then adapt to threats");
         add(c, fieldLabel(thai ? "แชมป์" : "CHAMPION"));
         Spinner me = spinner(names(champions)); add(c, me);
         add(c, fieldLabel(thai ? "ภัยหลัก" : "THREAT"));
@@ -171,68 +236,121 @@ public class MainActivity extends Activity {
         Button b = button(thai ? "สร้าง BUILD แนะนำ" : "GENERATE BUILD"); add(c, b);
         b.setOnClickListener(v -> {
             String x = threat.getSelectedItem().toString();
+            CounterEngine.ThreatProfile p = new CounterEngine.ThreatProfile();
+            p.absorb(x);
+            List<String[]> catalog = new ArrayList<>();
+            for (Item item : items) catalog.add(new String[]{item.name, item.tags});
+            List<CounterEngine.Candidate> ranked = CounterEngine.rank(catalog, p, false);
             StringBuilder s = new StringBuilder(thai ? "BUILD แนะนำ\n\n" : "RECOMMENDED BUILD\n\n");
             s.append(me.getSelectedItem()).append("\n\n");
-            if (x.contains("AP")) s.append("1. Maw of Malmortius / Mercury's Treads\n2. Guardian Angel\n3. Core damage item\n\n");
-            else if (x.contains("AD")) s.append("1. Plated Steelcaps\n2. Guardian Angel\n3. Core damage item\n\n");
-            else if (x.contains("Healing")) s.append("1. Mortal Reminder / Executioner's Calling\n2. Core damage item\n3. Defensive slot\n\n");
-            else if (x.contains("Armor")) s.append("1. Lord Dominik's Regards / Serylda's Grudge\n2. Black Cleaver\n3. Core damage item\n\n");
-            else if (x.contains("Shield")) s.append("1. Serpent's Fang\n2. Core damage item\n3. Guardian Angel\n\n");
-            else s.append("1. Guardian Angel\n2. Mercury's Treads or defensive slot\n3. Core damage item\n\n");
-            s.append(thai ? "หมายเหตุ: นี่คือระบบตัดสินใจออฟไลน์ ไม่ใช่ meta สด" : "Note: this is offline decision support, not live meta data.");
+            for (int i = 0; i < Math.min(4, ranked.size()); i++) {
+                CounterEngine.Candidate r = ranked.get(i);
+                s.append(i + 1).append(". ").append(r.name).append("\n");
+            }
+            s.append("\n").append(thai ? "หลักการ: ปรับไอเทมตามภัยของเกม ไม่ยึด build preset แบบตายตัว" : "Principle: adapt items to the game threat instead of blindly following a fixed preset.");
             output.setText(s.toString());
         });
     }
 
     private void champions(LinearLayout c) {
-        header(c, thai ? "CHAMPION DATABASE" : "CHAMPION DATABASE", thai ? "ค้นหาแชมป์จากข้อมูลออฟไลน์" : "Search the offline champion dataset");
+        header(c, thai ? "CHAMPION DATABASE" : "CHAMPION DATABASE", thai ? "ข้อมูลแชมป์ออฟไลน์ + Role" : "Offline champion data + roles");
         EditText search = edit(thai ? "ค้นหา Ahri, Kai'Sa, MID..." : "Search Ahri, Kai'Sa, MID..."); add(c, search);
         ListView list = new ListView(this); list.setDivider(null); list.setBackgroundColor(BG); add(c, list, new LinearLayout.LayoutParams(-1, dp(430)));
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, championRows(champions));
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, championRows(champions));
         list.setAdapter(adapter);
-        search.addTextChangedListener(new TextWatcher() { public void beforeTextChanged(CharSequence s,int st,int c,int a){} public void onTextChanged(CharSequence s,int st,int b,int c2){ adapter.getFilter().filter(s); } public void afterTextChanged(Editable e){} });
+        search.addTextChangedListener(new TextWatcher() {
+            public void beforeTextChanged(CharSequence s,int st,int c,int a){}
+            public void onTextChanged(CharSequence s,int st,int b,int c2){ adapter.getFilter().filter(s); }
+            public void afterTextChanged(Editable e){}
+        });
         list.setOnItemClickListener((p,v,pos,id) -> {
             String name = ((TextView)v).getText().toString().split(" • ")[0];
-            for (Champion x : champions) if (x.name.equals(name)) { championDetail(c, x); break; }
+            Champion x = findChampion(name);
+            if (x != null) championDetail(c, x);
         });
     }
 
     private void championDetail(LinearLayout c, Champion x) {
         add(c, section(c, x.name));
-        TextView d = text(x.role + "  •  " + x.damageType + "\n" + x.description + "\n\nTags: " + x.tags, 14, TEXT); cardView(c, d);
+        TextView d = text(x.role + "  •  " + x.damageType + "\n" + x.description + "\n\nTags: " + x.tags + "\n\nData: " + x.patch + " • " + x.source, 14, TEXT);
+        cardView(c, d);
         Button fav = button(favorites().contains(x.name) ? (thai ? "★ ลบจากรายการโปรด" : "★ Remove favorite") : (thai ? "☆ เพิ่มรายการโปรด" : "☆ Add favorite"));
         add(c, fav);
         fav.setOnClickListener(v -> { Set<String> f = new HashSet<>(favorites()); if (f.contains(x.name)) f.remove(x.name); else f.add(x.name); prefs.edit().putStringSet("favorites", f).apply(); showTab(3); });
+    }
+
+    private void ensureNoDuplicate(Spinner[] picks, int changed) {
+        String selected = String.valueOf(picks[changed].getSelectedItem());
+        for (int i = 0; i < picks.length; i++) {
+            if (i == changed) continue;
+            if (selected.equals(String.valueOf(picks[i].getSelectedItem()))) {
+                for (int j = 0; j < picks[i].getCount(); j++) {
+                    String candidate = String.valueOf(picks[i].getItemAtPosition(j));
+                    if (!candidate.equals(selected) && !isSelectedByOther(picks, i, candidate)) {
+                        picks[i].setSelection(j);
+                        return;
+                    }
+                }
+            }
+        }
+    }
+
+    private boolean isSelectedByOther(Spinner[] picks, int skip, String candidate) {
+        for (int i = 0; i < picks.length; i++) if (i != skip && candidate.equals(String.valueOf(picks[i].getSelectedItem()))) return true;
+        return false;
+    }
+
+    private void setSpinnerValues(Spinner spinner, String[] values) {
+        String previous = String.valueOf(spinner.getSelectedItem());
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, values);
+        spinner.setAdapter(adapter);
+        for (int i = 0; i < values.length; i++) if (values[i].equals(previous)) { spinner.setSelection(i); return; }
+        if (values.length > 0) spinner.setSelection(0);
+    }
+
+    private String threatFlags(CounterEngine.ThreatProfile p) {
+        List<String> f = new ArrayList<>();
+        if (p.healing) f.add("HEAL");
+        if (p.shields) f.add("SHIELD");
+        if (p.magicBurst) f.add("AP/MAGIC");
+        if (p.physicalBurst) f.add("AD/PHYSICAL");
+        if (p.armorStack) f.add("ARMOR");
+        if (p.magicResist) f.add("MR");
+        if (p.crowdControl) f.add("CC");
+        if (p.assassin) f.add("ASSASSIN");
+        if (p.frontline) f.add("FRONTLINE");
+        if (p.autoAttack) f.add("AUTO");
+        if (p.mixedDamage) f.add("MIXED");
+        return f.isEmpty() ? "SITUATIONAL" : String.join(" • ", f);
+    }
+
+    private String teamPlayTip(List<Champion> enemies) {
+        boolean assassin = false, tank = false, heal = false, cc = false;
+        for (Champion e : enemies) {
+            assassin |= e.tags.contains("ASSASSIN");
+            tank |= e.tags.contains("TANK") || e.tags.contains("ARMOR");
+            heal |= e.tags.contains("HEAL");
+            cc |= e.tags.contains("CC");
+        }
+        List<String> tips = new ArrayList<>();
+        if (assassin) tips.add(thai ? "รักษา Vision และเก็บ escape cooldown ไว้รับจังหวะล้วง" : "Maintain vision and hold escape cooldowns for assassin entry.");
+        if (heal) tips.add(thai ? "ลดการฟื้นฟูก่อนการแลกยาว" : "Apply anti-heal before extended trades.");
+        if (tank) tips.add(thai ? "อย่าเท cooldown ทั้งหมดใส่แนวหน้าโดยไม่มี priority target" : "Do not spend every cooldown on the frontline without a priority target.");
+        if (cc) tips.add(thai ? "กระจายตัวและหลีกเลี่ยงการโดน CC หลักพร้อมกัน" : "Spread out and avoid taking the primary CC chain together.");
+        if (tips.isEmpty()) tips.add(thai ? "เล่นตาม wave, vision และจังหวะ objective" : "Play around wave state, vision and objective timing.");
+        return String.join("\n", tips);
+    }
+
+    private Champion findChampion(String name) {
+        for (Champion x : champions) if (x.name.equals(name)) return x;
+        return null;
     }
 
     private List<String> favorites() { return new ArrayList<>(prefs.getStringSet("favorites", new HashSet<String>())); }
     private List<String> championRows(List<Champion> list) { List<String> out=new ArrayList<>(); for(Champion x:list) out.add(x.name+" • "+x.role+" • "+x.damageType); return out; }
     private String[] names(List<Champion> list){String[] a=new String[list.size()];for(int i=0;i<list.size();i++)a[i]=list.get(i).name;return a;}
     private String[] itemNames(List<Item> list){String[] a=new String[list.size()];for(int i=0;i<list.size();i++)a[i]=list.get(i).name;return a;}
-
-    private List<ItemScore> recommend(Champion me, Champion enemy, Item enemyItem, String threats) {
-        List<ItemScore> out=new ArrayList<>();
-        for(Item x:items){double score=0;List<String> why=new ArrayList<>();String all=(enemy.tags+" "+threats+" "+enemyItem.tags).toUpperCase();
-            if(all.contains("HEAL")&&x.tags.contains("ANTI_HEAL")){score+=8;why.add(thai?"ลดการฟื้นฟู":"anti-heal");}
-            if((all.contains("ARMOR")||enemy.tags.contains("TANK"))&&x.tags.contains("ARMOR_PEN")){score+=7;why.add(thai?"รับมือเกราะ/แนวหน้า":"armor penetration");}
-            if((all.contains("AP")||enemy.damageType.equals("MAGIC"))&&x.tags.contains("MR")){score+=7;why.add(thai?"ต้านเวท":"magic resistance");}
-            if(all.contains("SHIELD")&&x.tags.contains("ANTI_SHIELD")){score+=8;why.add(thai?"ตัด Shield":"anti-shield");}
-            if((all.contains("ASSASSIN")||all.contains("BURST"))&&x.tags.contains("REVIVE")){score+=5;why.add(thai?"กันการโดนลบเร็ว":"survivability");}
-            if(all.contains("AD")&&x.tags.contains("ARMOR")){score+=6;why.add(thai?"ลดแรงโจมตีกายภาพ":"armor");}
-            if(all.contains("CC")&&x.tags.contains("CC_RESIST")){score+=6;why.add(thai?"ลดผล CC":"CC resistance");}
-            if(me.tags.contains("DPS")&&x.tags.contains("ARMOR_PEN"))score+=1;
-            if(why.isEmpty()){score=1;why.add(thai?"ตัวเลือกสถานการณ์":"situational");}
-            out.add(new ItemScore(x,score,String.join(" • ",why)));
-        }
-        Collections.sort(out, (a,b)->Double.compare(b.score,a.score)); return out;
-    }
-
-    private String playTip(Champion me, Champion e){
-        if(e.tags.contains("ASSASSIN")) return thai?"เก็บ Flash/escape ไว้รับจังหวะเข้าถึงแนวหลัง และอย่าเดินลึกโดยไม่มี Vision":"Hold your escape for the assassin's entry and avoid deep paths without vision.";
-        if(e.tags.contains("HEAL")) return thai?"ลดการฮีลก่อนการแลกยาว และหลีกเลี่ยงการให้ศัตรูได้ไฟต์ฟรี":"Apply anti-heal before extended trades and deny free resets.";
-        if(e.tags.contains("TANK")||e.tags.contains("ARMOR")) return thai?"อย่าเสีย cooldown ทั้งหมดใส่แนวหน้าโดยไม่มีเป้าหมายหลัก":"Do not spend every cooldown on the frontline without a priority target.";
-        return thai?"เล่นตามจังหวะ wave และเก็บ cooldown สำคัญไว้ตอบโต้ engage":"Play around wave timing and reserve key cooldowns for the enemy engage.";
-    }
+    private String[] championNamesForRole(String role) { List<Champion> filtered = new ArrayList<>(); for (Champion x : champions) if (x.role.equals(role)) filtered.add(x); return names(filtered); }
 
     private LinearLayout bottomNav(){LinearLayout n=new LinearLayout(this);n.setPadding(dp(8),dp(7),dp(8),dp(7));n.setBackgroundColor(Color.rgb(14,18,24));String[] labels=thai?new String[]{"หน้าหลัก","Counter","Build","Champions"}:new String[]{"Home","Counter","Build","Champions"};for(int i=0;i<4;i++){final int tab=i;Button b=button(labels[i]);b.setTextSize(11);b.setBackgroundColor(i==currentTab?Color.rgb(35,72,78):Color.TRANSPARENT);b.setOnClickListener(v->showTab(tab));n.addView(b,new LinearLayout.LayoutParams(0,dp(52),1));}return n;}
     private void header(LinearLayout c,String a,String b){TextView t=text(a,26,TEXT);t.setTypeface(Typeface.DEFAULT,Typeface.BOLD);add(c,t);TextView s=text(b,13,MUTED);add(c,s);add(c,space(10));}
@@ -242,16 +360,17 @@ public class MainActivity extends Activity {
     private TextView space(int h){TextView t=new TextView(this);t.setHeight(dp(h));return t;}
     private Button button(String s){Button b=new Button(this);b.setText(s);b.setTextColor(TEXT);b.setTextSize(13);b.setAllCaps(false);b.setBackground(round(PANEL_2,14));return b;}
     private EditText edit(String hint){EditText e=new EditText(this);e.setHint(hint);e.setHintTextColor(MUTED);e.setTextColor(TEXT);e.setSingleLine(true);e.setPadding(dp(14),0,dp(14),0);e.setBackground(round(PANEL_2,14));e.setMinHeight(dp(52));return e;}
-    private Spinner spinner(String[] values){Spinner s=new Spinner(this);ArrayAdapter<String>a=new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item,values);s.setAdapter(a);s.setBackground(round(PANEL_2,12));s.setMinimumHeight(dp(50));return s;}
+    private Spinner spinner(String[] values){Spinner s=new Spinner(this);ArrayAdapter<String>a=new ArrayAdapter<>(this,android.R.layout.simple_spinner_dropdown_item,values);s.setAdapter(a);s.setBackground(round(PANEL_2,12));s.setMinimumHeight(dp(50));return s;}
     private TextView actionCard(String title,String sub,int tab){TextView t=text(title+"\n"+sub,15,TEXT);t.setPadding(dp(16),dp(14),dp(16),dp(14));t.setBackground(round(PANEL,16));t.setOnClickListener(v->showTab(tab));return t;}
     private void card(LinearLayout c,String title,String body){TextView t=text(title+"\n\n"+body,14,TEXT);t.setPadding(dp(16),dp(16),dp(16),dp(16));cardView(c,t);}
     private void cardView(LinearLayout c,View v){v.setBackground(round(PANEL,16));LinearLayout.LayoutParams p=new LinearLayout.LayoutParams(-1,-2);p.setMargins(0,dp(7),0,dp(7));c.addView(v,p);}
     private void add(LinearLayout c,View v){LinearLayout.LayoutParams p=new LinearLayout.LayoutParams(-1,-2);p.setMargins(0,dp(4),0,dp(4));c.addView(v,p);}
-    private void add(LinearLayout c,View v,LinearLayout.LayoutParams p){p.setMargins(0,dp(4),0,dp(4));c.addView(v,p);}
     private GradientDrawable round(int color,int r){GradientDrawable g=new GradientDrawable();g.setColor(color);g.setCornerRadius(dp(r));g.setStroke(dp(1),Color.rgb(38,47,58));return g;}
     private int dp(int v){return(int)(v*getResources().getDisplayMetrics().density+0.5f);}
 
-    static class Champion{final String name,role,damageType,tags,description;Champion(String n,String r,String d,String t,String de){name=n;role=r;damageType=d;tags=t;description=de;}}
+    static class Champion{
+        final String name,role,damageType,tags,description,patch,source;
+        Champion(String n,String r,String d,String t,String de){name=n;role=r;damageType=d;tags=t;description=de;patch=DATA_PATCH;source=DATA_SOURCE;}
+    }
     static class Item{final String name,tags,description;Item(String n,String t,String d){name=n;tags=t;description=d;}}
-    static class ItemScore{final Item item;final double score;final String reason;ItemScore(Item i,double s,String r){item=i;score=s;reason=r;}}
 }
