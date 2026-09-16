@@ -1,0 +1,10 @@
+{
+  "patch": "7.2e-reference",
+  "source": ["WildRiftFire", "WR-META", "Wild Rift Guides"],
+  "updatedAt": "2026-09-16",
+  "coverage": "schema-seed",
+  "runes": [
+    {"id":"anti-burst","name":"Anti-burst defensive rune","tree":"INSPIRATION/RESOLVE","triggers":["ASSASSIN","BURST","DIVE"],"notes":"Reserved for validated champion-specific rune mapping."},
+    {"id":"anti-cc","name":"CC mitigation rune","tree":"RESOLVE/INSPIRATION","triggers":["CC","ENGAGE"],"notes":"Reserved for validated champion-specific rune mapping."}
+  ]
+}
