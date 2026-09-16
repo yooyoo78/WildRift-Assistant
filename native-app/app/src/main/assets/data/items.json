@@ -1,0 +1,19 @@
+{
+  "patch": "7.2e-reference",
+  "source": ["Wild Rift Core", "WildRiftFire", "Wild Rift Guides"],
+  "updatedAt": "2026-09-16",
+  "coverage": "reference-subset",
+  "items": [
+    {"id":"mortal-reminder","name":"Mortal Reminder","category":"PHYSICAL","tags":["ANTI_HEAL","ARMOR_PEN"],"description":"Anti-heal plus armor penetration."},
+    {"id":"lord-dominiks-regards","name":"Lord Dominik's Regards","category":"PHYSICAL","tags":["ARMOR_PEN"],"description":"Armor penetration for durable targets."},
+    {"id":"maw-of-malmortius","name":"Maw of Malmortius","category":"DEFENSE","tags":["MR"],"description":"Magic-damage defense with anti-burst value."},
+    {"id":"guardian-angel","name":"Guardian Angel","category":"DEFENSE","tags":["REVIVE"],"description":"Revive effect for high-risk fights."},
+    {"id":"black-cleaver","name":"Black Cleaver","category":"PHYSICAL","tags":["ARMOR_PEN","HP"],"description":"Health plus armor reduction/penetration utility."},
+    {"id":"serpents-fang","name":"Serpent's Fang","category":"PHYSICAL","tags":["ANTI_SHIELD"],"description":"Shield counter item."},
+    {"id":"mercurys-treads","name":"Mercury's Treads","category":"BOOTS","tags":["CC_RESIST","MR"],"description":"Magic resistance and crowd-control mitigation."},
+    {"id":"plated-steelcaps","name":"Plated Steelcaps","category":"BOOTS","tags":["ARMOR","ANTI_AUTO"],"description":"Armor and basic-attack mitigation."},
+    {"id":"spirit-visage","name":"Spirit Visage","category":"DEFENSE","tags":["MR","HP"],"description":"Magic resistance and sustain-oriented defense."},
+    {"id":"executioners-calling","name":"Executioner's Calling","category":"COMPONENT","tags":["ANTI_HEAL"],"description":"Early anti-heal component."},
+    {"id":"seryldas-grudge","name":"Serylda's Grudge","category":"PHYSICAL","tags":["ARMOR_PEN","CC"],"description":"Armor penetration with slow utility."}
+  ]
+}
