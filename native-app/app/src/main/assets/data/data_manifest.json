@@ -1,12 +1,19 @@
 {
-  "schemaVersion": "1.0",
+  "schemaVersion": "1.1",
   "datasetVersion": "7.2e-reference-2026-09-16",
   "patch": "7.2e-reference",
   "updatedAt": "2026-09-16",
   "coverage": "reference-subset",
+  "completeness": {
+    "champions": "partial-reference-subset",
+    "items": "partial-reference-subset",
+    "runes": "reference-name-subset",
+    "matchups": "rule-seed-subset",
+    "team_rules": "decision-rules",
+    "macro_rules": "decision-rules"
+  },
   "sources": [
     "Wild Rift Core",
-    "Wild Rift Build",
     "Wild Rift Meta",
     "WR-META",
     "WildRiftFire",
@@ -20,5 +27,10 @@
     "team_rules.json",
     "macro_rules.json"
   ],
-  "runtimePolicy": "offline-first; patch snapshots must not be silently merged"
+  "runtimePolicy": "offline-first; patch snapshots must not be silently merged; incomplete reference subsets must not be presented as complete roster data",
+  "verificationNotes": [
+    "Current external references identify Patch 7.2e as the active snapshot.",
+    "Wild Rift Core currently reports 141 champions and 109 items; the bundled champion/item files are intentionally smaller reference subsets until full records are verified.",
+    "Rune names in runes.json were replaced with source-verified names; champion-specific rune recommendations remain pending validation."
+  ]
 }
