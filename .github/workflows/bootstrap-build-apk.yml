@@ -51,6 +51,7 @@ jobs:
           test -f app/src/main/assets/data/champions.json
           test -f app/src/main/assets/data/items.json
           test -f app/src/main/assets/data/runes.json
+          test -f app/src/main/assets/data/rune_recommendations.json
           test -f app/src/main/assets/data/matchups.json
           test -f app/src/main/assets/data/team_rules.json
           test -f app/src/main/assets/data/macro_rules.json
@@ -81,8 +82,8 @@ jobs:
           assert manifest['completeness']['items'] != 'complete'
 
           expected_files = {
-              'champions.json', 'items.json', 'runes.json', 'matchups.json',
-              'team_rules.json', 'macro_rules.json'
+              'champions.json', 'items.json', 'runes.json', 'rune_recommendations.json',
+              'matchups.json', 'team_rules.json', 'macro_rules.json'
           }
           assert set(manifest['files']) == expected_files
 
@@ -93,7 +94,7 @@ jobs:
               assert obj['updatedAt'] == manifest['updatedAt'], name
 
               records = obj.get('champions') or obj.get('items') or obj.get('runes') \
-                        or obj.get('matchups') or obj.get('rules') or obj.get('macroRules')
+                        or obj.get('recommendations') or obj.get('matchups') or obj.get('rules') or obj.get('macroRules')
               if records is not None:
                   assert isinstance(records, list), name
                   ids = []
@@ -115,9 +116,11 @@ jobs:
 
           champions = json.loads((root / 'champions.json').read_text())['champions']
           items = json.loads((root / 'items.json').read_text())['items']
+          recommendations = json.loads((root / 'rune_recommendations.json').read_text())['recommendations']
           assert len(champions) >= 20
           assert len(items) >= 11
-          print(f'Structured offline data validation: PASS ({len(champions)} champions, {len(items)} items)')
+          assert len(recommendations) >= 1
+          print(f'Structured offline data validation: PASS ({len(champions)} champions, {len(items)} items, {len(recommendations)} rune presets)')
           PY
 
           if grep -RqsE 'android\.webkit\.WebView|[[:space:]]WebView[[:space:]]+[A-Za-z_][A-Za-z0-9_]*' app/src/main --include='*.java' --include='*.kt'; then
