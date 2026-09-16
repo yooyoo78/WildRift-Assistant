@@ -72,14 +72,52 @@ jobs:
           python3 - <<'PY'
           import json
           from pathlib import Path
+
           root = Path('app/src/main/assets/data')
           manifest = json.loads((root / 'data_manifest.json').read_text())
           assert manifest['patch'] == '7.2e-reference'
+          assert manifest['coverage'] == 'reference-subset'
+          assert manifest['completeness']['champions'] != 'complete'
+          assert manifest['completeness']['items'] != 'complete'
+
+          expected_files = {
+              'champions.json', 'items.json', 'runes.json', 'matchups.json',
+              'team_rules.json', 'macro_rules.json'
+          }
+          assert set(manifest['files']) == expected_files
+
           for name in manifest['files']:
-              obj = json.loads((root / name).read_text())
+              path = root / name
+              obj = json.loads(path.read_text())
               assert obj['patch'] == manifest['patch'], name
               assert obj['updatedAt'] == manifest['updatedAt'], name
-          print('Structured offline data JSON validation: PASS')
+
+              records = obj.get('champions') or obj.get('items') or obj.get('runes') \
+                        or obj.get('matchups') or obj.get('rules') or obj.get('macroRules')
+              if records is not None:
+                  assert isinstance(records, list), name
+                  ids = []
+                  for record in records:
+                      assert isinstance(record, dict), name
+                      if 'id' in record:
+                          assert str(record['id']).strip(), name
+                          ids.append(str(record['id']).strip())
+                  assert len(ids) == len(set(ids)), f'duplicate id in {name}'
+
+          placeholders = {
+              'placeholder', 'dummy', 'test item', 'test rune',
+              "amumu's counterweight", 'anti-burst defensive rune', 'cc mitigation rune'
+          }
+          for path in root.glob('*.json'):
+              text = path.read_text().lower()
+              for marker in placeholders:
+                  assert marker not in text, f'placeholder marker {marker!r} in {path.name}'
+
+          champions = json.loads((root / 'champions.json').read_text())['champions']
+          items = json.loads((root / 'items.json').read_text())['items']
+          assert len(champions) >= 20
+          assert len(items) >= 11
+          print(f'Structured offline data validation: PASS ({len(champions)} champions, {len(items)} items)')
           PY
 
           if grep -RqsE 'android\.webkit\.WebView|[[:space:]]WebView[[:space:]]+[A-Za-z_][A-Za-z0-9_]*' app/src/main --include='*.java' --include='*.kt'; then
