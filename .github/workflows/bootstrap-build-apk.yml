@@ -56,6 +56,7 @@ jobs:
           test -f app/src/main/assets/data/matchups.json
           test -f app/src/main/assets/data/team_rules.json
           test -f app/src/main/assets/data/macro_rules.json
+          test -f app/src/main/assets/data/matchups.json
 
           ROOT_NAME=$(sed -n "s/^rootProject\.name[[:space:]]*=[[:space:]]*['\"]\(.*\)['\"][[:space:]]*$/\1/p" settings.gradle)
           test "$ROOT_NAME" = "LOL-Assistants"
@@ -76,7 +77,7 @@ jobs:
           from pathlib import Path
           root=Path('app/src/main/assets/data')
           manifest=json.loads((root/'data_manifest.json').read_text())
-          assert manifest['patch']=='7.2e-reference'
+          assert manifest['patch']=='7.3-reference'
           assert manifest['coverage']=='reference-subset'
           expected_files={'champions.json','champion_overrides.json','items.json','runes.json','rune_recommendations.json','matchups.json','team_rules.json','macro_rules.json'}
           assert set(manifest['files'])==expected_files
@@ -99,9 +100,11 @@ jobs:
           runes=json.loads((root/'rune_recommendations.json').read_text())['recommendations']
           champion_ids={r['id'] for r in base}
           champion_ids.update(r['id'] for r in overrides)
-          assert len(champion_ids)==141
-          assert len(items)>=105
+          assert len(champion_ids)==144
+          assert len(items)>=108
           assert len(runes)>=9
+          rune_ids={r['id'] for r in json.loads((root/'runes.json').read_text())['runes']}
+          assert 'legend-haste' in rune_ids and 'legend-tenacity' not in rune_ids and 'ingenious-hunter' not in rune_ids
           print(f'Structured offline data validation: PASS ({len(champion_ids)} runtime champions, {len(items)} items, {len(runes)} rune presets)')
           PY
 

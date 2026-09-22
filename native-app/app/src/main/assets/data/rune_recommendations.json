@@ -1,17 +1,118 @@
 {
-  "patch": "7.2e-reference",
-  "source": ["WildRiftFire"],
-  "updatedAt": "2026-09-16",
+  "patch": "7.3-reference",
+  "source": [
+    "WildRiftFire"
+  ],
+  "updatedAt": "2026-09-22",
   "coverage": "source-verified-champion-rune-subset",
   "recommendations": [
-    {"championId":"brand","role":"MID","runes":["Electrocute","Axiom Arcanist","Transcendence","Scorch","Bone Plating"],"source":"WildRiftFire Patch 7.2e Brand guide"},
-    {"championId":"karma","role":"SUPPORT","runes":["Arcane Comet","Manaflow Band","Transcendence","Scorch","Bone Plating"],"source":"WildRiftFire Patch 7.2e Karma guide"},
-    {"championId":"lux","role":"SUPPORT","runes":["Arcane Comet","Manaflow Band","Transcendence","Scorch","Bone Plating"],"source":"WildRiftFire Patch 7.2e Lux guide"},
-    {"championId":"morgana","role":"SUPPORT","runes":["Arcane Comet","Manaflow Band","Transcendence","Scorch","Bone Plating"],"source":"WildRiftFire Patch 7.2e Morgana guide"},
-    {"championId":"zyra","role":"SUPPORT","runes":["Arcane Comet","Manaflow Band","Transcendence","Scorch","Bone Plating"],"source":"WildRiftFire Patch 7.2e Zyra guide"},
-    {"championId":"sett","role":"TOP","runes":["Conqueror","Demolish","Second Wind","Overgrowth","Battle Zeal"],"source":"WildRiftFire Patch 7.2e Sett guide"},
-    {"championId":"graves","role":"JUNGLE","runes":["Fleet Footwork","Brutal","Cut Down","Legend: Alacrity","Bone Plating"],"source":"WildRiftFire Patch 7.2e Graves guide"},
-    {"championId":"kennen","role":"TOP","runes":["Electrocute","Battle Zeal","Cut Down","Legend: Bloodline","Bone Plating"],"source":"WildRiftFire Patch 7.2e Kennen guide"},
-    {"championId":"nunu-willump","role":"JUNGLE","runes":["Ice Overlord","Courage of the Colossus","Bone Plating","Overgrowth","Transcendence"],"source":"WildRiftFire Patch 7.2e Nunu & Willump guide"}
+    {
+      "championId": "brand",
+      "role": "MID",
+      "runes": [
+        "Electrocute",
+        "Manaflow Band",
+        "Transcendence",
+        "Scorch",
+        "Bone Plating"
+      ],
+      "source": "WildRiftFire Patch 7.3 brand guide"
+    },
+    {
+      "championId": "karma",
+      "role": "SUPPORT",
+      "runes": [
+        "Arcane Comet",
+        "Manaflow Band",
+        "Transcendence",
+        "Scorch",
+        "Bone Plating"
+      ],
+      "source": "WildRiftFire Patch 7.3 karma guide"
+    },
+    {
+      "championId": "lux",
+      "role": "SUPPORT",
+      "runes": [
+        "Arcane Comet",
+        "Manaflow Band",
+        "Transcendence",
+        "Scorch",
+        "Bone Plating"
+      ],
+      "source": "WildRiftFire Patch 7.3 lux guide"
+    },
+    {
+      "championId": "morgana",
+      "role": "SUPPORT",
+      "runes": [
+        "Arcane Comet",
+        "Manaflow Band",
+        "Transcendence",
+        "Scorch",
+        "Bone Plating"
+      ],
+      "source": "WildRiftFire Patch 7.3 morgana guide"
+    },
+    {
+      "championId": "zyra",
+      "role": "SUPPORT",
+      "runes": [
+        "Arcane Comet",
+        "Manaflow Band",
+        "Transcendence",
+        "Scorch",
+        "Bone Plating"
+      ],
+      "source": "WildRiftFire Patch 7.3 zyra guide"
+    },
+    {
+      "championId": "sett",
+      "role": "TOP",
+      "runes": [
+        "Conqueror",
+        "Brutal",
+        "Last Stand",
+        "Legend: Alacrity",
+        "Second Wind"
+      ],
+      "source": "WildRiftFire Patch 7.3 sett guide"
+    },
+    {
+      "championId": "graves",
+      "role": "JUNGLE",
+      "runes": [
+        "Fleet Footwork",
+        "Triumph",
+        "Cut Down",
+        "Legend: Alacrity",
+        "Absolute Focus"
+      ],
+      "source": "WildRiftFire Patch 7.3 graves guide"
+    },
+    {
+      "championId": "kennen",
+      "role": "TOP",
+      "runes": [
+        "Dark Harvest",
+        "Empowered Attack",
+        "Chain Assault",
+        "Eyeball Collector",
+        "Hextech Flashtraption"
+      ],
+      "source": "WildRiftFire Patch 7.3 kennen guide"
+    },
+    {
+      "championId": "nunu-willump",
+      "role": "JUNGLE",
+      "runes": [
+        "Ice Overlord",
+        "Courage of the Colossus",
+        "Bone Plating",
+        "Overgrowth",
+        "Transcendence"
+      ],
+      "source": "WildRiftFire Patch 7.3 nunu-willump guide"
+    }
   ]
 }

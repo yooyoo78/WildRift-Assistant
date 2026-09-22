@@ -1,27 +1,42 @@
 {
   "schemaVersion": "1.1",
-  "datasetVersion": "7.2e-reference-2026-09-16",
-  "patch": "7.2e-reference",
-  "updatedAt": "2026-09-16",
+  "datasetVersion": "7.3-reference-2026-09-22",
+  "patch": "7.3-reference",
+  "updatedAt": "2026-09-22",
   "coverage": "reference-subset",
   "completeness": {
-    "champions": "identity-complete-141 via base-138 plus verified-overrides-3; combat-traits-20",
-    "items": "identity-reference-105; combat-tags-partial-11; source-reported-catalog-109",
-    "runes": "reference-name-subset",
-    "matchups": "source-verified-counter-subset-24",
+    "champions": "identity-complete-144 via base-138 plus verified-overrides-6; combat-traits-23",
+    "items": "identity-reference-108; combat-tags-partial-14; source-reported-catalog-109",
+    "runes": "reference-name-subset-7.3",
+    "matchups": "source-verified-counter-subset-27",
     "rune_recommendations": "source-verified-champion-subset-9",
     "team_rules": "decision-rules",
     "macro_rules": "decision-rules"
   },
-  "sources": ["Wild Rift Core","Wild Rift Meta","WR-META","WildRiftFire","Wild Rift Guides"],
-  "files": ["champions.json","champion_overrides.json","items.json","runes.json","rune_recommendations.json","matchups.json","team_rules.json","macro_rules.json"],
+  "sources": [
+    "Wild Rift Core",
+    "Wild Rift Meta",
+    "WR-META",
+    "WildRiftFire",
+    "Wild Rift Guides"
+  ],
+  "files": [
+    "champions.json",
+    "champion_overrides.json",
+    "items.json",
+    "runes.json",
+    "rune_recommendations.json",
+    "matchups.json",
+    "team_rules.json",
+    "macro_rules.json"
+  ],
   "runtimePolicy": "offline-first; patch snapshots must not be silently merged; incomplete reference subsets must not be presented as complete roster data",
   "verificationNotes": [
-    "Current external references identify Patch 7.2e as the active snapshot.",
-    "Wild Rift Core currently reports 141 champions and a 109-item site catalog; the runtime champion roster is assembled from the 138-record base snapshot plus three separately verified champion overrides.",
-    "The current WildRiftFire 7.2e item-list search snapshot exposed 103 names; after deduplicating the existing Lord Dominik's Regards spelling variant and retaining the 3 existing validated identities, the runtime item catalog contains 105 unique identities without claiming the 109-item site catalog is complete.",
-    "champion_overrides.json restores Lux, Morgana and Thresh as verified current-patch combat/role records without silently inventing traits for other identity-only champions.",
-    "matchups.json now contains 24 edges, including 21 counter relationships taken from current Patch 7.2e WildRiftFire champion guides; it is intentionally not presented as a complete counter graph.",
-    "rune_recommendations.json contains 9 current Patch 7.2e champion-role rune presets sourced from WildRiftFire; it is intentionally not presented as a complete champion rune database."
+    "Patch 7.3 is current on 2026-09-22; WildRiftFire marks 7.3 current and documents the champion, item and rune changes.",
+    "Wild Rift Core confirms the 7.3 release and the three new champions, while its champion hub remains a 7.2e roster snapshot; the runtime therefore labels the 138-record baseline as identity-only and adds three verified overrides.",
+    "The runtime item catalog retains 105 older identity records and adds three directly verified 7.3 identities; it does not claim the external 109-item catalog is complete.",
+    "Legend: Tenacity and Ingenious Hunter are removed in 7.3; Legend: Haste replaces Legend: Tenacity.",
+    "Matchups are a 27-edge source-verified 7.3 subset, not a complete counter graph.",
+    "Patch-specific source differences are explicitly labeled; no older combat recommendation is silently presented as a complete 7.3 dataset."
   ]
 }

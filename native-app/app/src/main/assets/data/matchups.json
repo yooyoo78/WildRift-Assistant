@@ -1,33 +1,254 @@
 {
-  "patch": "7.2e-reference",
-  "source": ["Wild Rift Core", "WR-META", "WildRiftFire", "Wild Rift Guides"],
-  "updatedAt": "2026-09-16",
+  "patch": "7.3-reference",
+  "source": [
+    "WildRiftFire"
+  ],
+  "updatedAt": "2026-09-22",
   "coverage": "source-verified-counter-subset",
-  "coverageDetail": "24 matchup edges total: 3 existing rule seeds plus 21 current-patch WildRiftFire counter relationships. This is not a complete 141-champion counter graph.",
+  "coverageDetail": "27 Patch 7.3 counter edges from current WildRiftFire guides; not a complete counter graph.",
   "matchups": [
-    {"playerChampion":"ahri","enemyChampion":"akali","role":"MID","verdict":"THREAT","rationale":"Respect assassin access and burst windows.","itemTriggers":["MR","REVIVE"],"gameplay":["Hold charm for committed entry.","Track shroud and ultimate timing."]},
-    {"playerChampion":"caitlyn","enemyChampion":"rammus","role":"ADC","verdict":"THREAT","rationale":"Armor and anti-auto profile reduces basic-attack value.","itemTriggers":["ARMOR_PEN"],"gameplay":["Avoid overcommitting into frontline armor."]},
-    {"playerChampion":"jinx","enemyChampion":"leona","role":"ADC","verdict":"THREAT","rationale":"Layered crowd control creates an engage threat.","itemTriggers":["CC_RESIST"],"gameplay":["Track primary engage before stepping forward."]},
-    {"playerChampion":"brand","enemyChampion":"syndra","role":"MID","verdict":"THREAT","rationale":"WildRiftFire's Patch 7.2e Brand guide lists Syndra as a mid-lane counter.","itemTriggers":[],"gameplay":[]},
-    {"playerChampion":"brand","enemyChampion":"zed","role":"MID","verdict":"THREAT","rationale":"WildRiftFire's Patch 7.2e Brand guide lists Zed as a mid-lane counter.","itemTriggers":[],"gameplay":[]},
-    {"playerChampion":"brand","enemyChampion":"lux","role":"MID","verdict":"THREAT","rationale":"WildRiftFire's Patch 7.2e Brand guide lists Lux as a mid-lane counter.","itemTriggers":[],"gameplay":[]},
-    {"playerChampion":"lux","enemyChampion":"pyke","role":"SUPPORT","verdict":"THREAT","rationale":"WildRiftFire's Patch 7.2e Lux guide lists Pyke as a support counter.","itemTriggers":[],"gameplay":[]},
-    {"playerChampion":"lux","enemyChampion":"nami","role":"SUPPORT","verdict":"THREAT","rationale":"WildRiftFire's Patch 7.2e Lux guide lists Nami as a support counter.","itemTriggers":[],"gameplay":[]},
-    {"playerChampion":"lux","enemyChampion":"karma","role":"SUPPORT","verdict":"THREAT","rationale":"WildRiftFire's Patch 7.2e Lux guide lists Karma as a support counter.","itemTriggers":[],"gameplay":[]},
-    {"playerChampion":"sett","enemyChampion":"renekton","role":"TOP","verdict":"THREAT","rationale":"WildRiftFire's Patch 7.2e Sett guide lists Renekton as a solo-lane counter.","itemTriggers":[],"gameplay":[]},
-    {"playerChampion":"sett","enemyChampion":"mordekaiser","role":"TOP","verdict":"THREAT","rationale":"WildRiftFire's Patch 7.2e Sett guide lists Mordekaiser as a solo-lane counter.","itemTriggers":[],"gameplay":[]},
-    {"playerChampion":"sett","enemyChampion":"aatrox","role":"TOP","verdict":"THREAT","rationale":"WildRiftFire's Patch 7.2e Sett guide lists Aatrox as a solo-lane counter.","itemTriggers":[],"gameplay":[]},
-    {"playerChampion":"graves","enemyChampion":"rammus","role":"JUNGLE","verdict":"THREAT","rationale":"WildRiftFire's Patch 7.2e Graves guide lists Rammus as a jungle counter.","itemTriggers":[],"gameplay":[]},
-    {"playerChampion":"graves","enemyChampion":"amumu","role":"JUNGLE","verdict":"THREAT","rationale":"WildRiftFire's Patch 7.2e Graves guide lists Amumu as a jungle counter.","itemTriggers":[],"gameplay":[]},
-    {"playerChampion":"graves","enemyChampion":"aatrox","role":"JUNGLE","verdict":"THREAT","rationale":"WildRiftFire's Patch 7.2e Graves guide lists Aatrox as a jungle counter.","itemTriggers":[],"gameplay":[]},
-    {"playerChampion":"kennen","enemyChampion":"gnar","role":"TOP","verdict":"THREAT","rationale":"WildRiftFire's Patch 7.2e Kennen guide lists Gnar as a solo-lane counter.","itemTriggers":[],"gameplay":[]},
-    {"playerChampion":"kennen","enemyChampion":"nasus","role":"TOP","verdict":"THREAT","rationale":"WildRiftFire's Patch 7.2e Kennen guide lists Nasus as a solo-lane counter.","itemTriggers":[],"gameplay":[]},
-    {"playerChampion":"kennen","enemyChampion":"wukong","role":"TOP","verdict":"THREAT","rationale":"WildRiftFire's Patch 7.2e Kennen guide lists Wukong as a solo-lane counter.","itemTriggers":[],"gameplay":[]},
-    {"playerChampion":"kennen","enemyChampion":"kassadin","role":"MID","verdict":"THREAT","rationale":"WildRiftFire's Patch 7.2e Kennen guide lists Kassadin as a mid-lane counter.","itemTriggers":[],"gameplay":[]},
-    {"playerChampion":"kennen","enemyChampion":"aurora","role":"MID","verdict":"THREAT","rationale":"WildRiftFire's Patch 7.2e Kennen guide lists Aurora as a mid-lane counter.","itemTriggers":[],"gameplay":[]},
-    {"playerChampion":"kennen","enemyChampion":"swain","role":"MID","verdict":"THREAT","rationale":"WildRiftFire's Patch 7.2e Kennen guide lists Swain as a mid-lane counter.","itemTriggers":[],"gameplay":[]},
-    {"playerChampion":"nunu-willump","enemyChampion":"lillia","role":"JUNGLE","verdict":"THREAT","rationale":"WildRiftFire's Patch 7.2e Nunu & Willump guide lists Lillia as a jungle counter.","itemTriggers":[],"gameplay":[]},
-    {"playerChampion":"nunu-willump","enemyChampion":"evelynn","role":"JUNGLE","verdict":"THREAT","rationale":"WildRiftFire's Patch 7.2e Nunu & Willump guide lists Evelynn as a jungle counter.","itemTriggers":[],"gameplay":[]},
-    {"playerChampion":"nunu-willump","enemyChampion":"morgana","role":"JUNGLE","verdict":"THREAT","rationale":"WildRiftFire's Patch 7.2e Nunu & Willump guide lists Morgana as a jungle counter.","itemTriggers":[],"gameplay":[]}
+    {
+      "playerChampion": "ahri",
+      "enemyChampion": "akali",
+      "role": "MID",
+      "verdict": "THREAT",
+      "rationale": "WildRiftFire Patch 7.3 guide lists akali as a counter for ahri in MID.",
+      "itemTriggers": [],
+      "gameplay": []
+    },
+    {
+      "playerChampion": "ahri",
+      "enemyChampion": "syndra",
+      "role": "MID",
+      "verdict": "THREAT",
+      "rationale": "WildRiftFire Patch 7.3 guide lists syndra as a counter for ahri in MID.",
+      "itemTriggers": [],
+      "gameplay": []
+    },
+    {
+      "playerChampion": "ahri",
+      "enemyChampion": "orianna",
+      "role": "MID",
+      "verdict": "THREAT",
+      "rationale": "WildRiftFire Patch 7.3 guide lists orianna as a counter for ahri in MID.",
+      "itemTriggers": [],
+      "gameplay": []
+    },
+    {
+      "playerChampion": "caitlyn",
+      "enemyChampion": "sivir",
+      "role": "ADC",
+      "verdict": "THREAT",
+      "rationale": "WildRiftFire Patch 7.3 guide lists sivir as a counter for caitlyn in ADC.",
+      "itemTriggers": [],
+      "gameplay": []
+    },
+    {
+      "playerChampion": "caitlyn",
+      "enemyChampion": "ezreal",
+      "role": "ADC",
+      "verdict": "THREAT",
+      "rationale": "WildRiftFire Patch 7.3 guide lists ezreal as a counter for caitlyn in ADC.",
+      "itemTriggers": [],
+      "gameplay": []
+    },
+    {
+      "playerChampion": "caitlyn",
+      "enemyChampion": "miss-fortune",
+      "role": "ADC",
+      "verdict": "THREAT",
+      "rationale": "WildRiftFire Patch 7.3 guide lists miss-fortune as a counter for caitlyn in ADC.",
+      "itemTriggers": [],
+      "gameplay": []
+    },
+    {
+      "playerChampion": "jinx",
+      "enemyChampion": "jhin",
+      "role": "ADC",
+      "verdict": "THREAT",
+      "rationale": "WildRiftFire Patch 7.3 guide lists jhin as a counter for jinx in ADC.",
+      "itemTriggers": [],
+      "gameplay": []
+    },
+    {
+      "playerChampion": "jinx",
+      "enemyChampion": "miss-fortune",
+      "role": "ADC",
+      "verdict": "THREAT",
+      "rationale": "WildRiftFire Patch 7.3 guide lists miss-fortune as a counter for jinx in ADC.",
+      "itemTriggers": [],
+      "gameplay": []
+    },
+    {
+      "playerChampion": "jinx",
+      "enemyChampion": "kog-maw",
+      "role": "ADC",
+      "verdict": "THREAT",
+      "rationale": "WildRiftFire Patch 7.3 guide lists kog-maw as a counter for jinx in ADC.",
+      "itemTriggers": [],
+      "gameplay": []
+    },
+    {
+      "playerChampion": "brand",
+      "enemyChampion": "syndra",
+      "role": "MID",
+      "verdict": "THREAT",
+      "rationale": "WildRiftFire Patch 7.3 guide lists syndra as a counter for brand in MID.",
+      "itemTriggers": [],
+      "gameplay": []
+    },
+    {
+      "playerChampion": "brand",
+      "enemyChampion": "zed",
+      "role": "MID",
+      "verdict": "THREAT",
+      "rationale": "WildRiftFire Patch 7.3 guide lists zed as a counter for brand in MID.",
+      "itemTriggers": [],
+      "gameplay": []
+    },
+    {
+      "playerChampion": "brand",
+      "enemyChampion": "lux",
+      "role": "MID",
+      "verdict": "THREAT",
+      "rationale": "WildRiftFire Patch 7.3 guide lists lux as a counter for brand in MID.",
+      "itemTriggers": [],
+      "gameplay": []
+    },
+    {
+      "playerChampion": "lux",
+      "enemyChampion": "pyke",
+      "role": "SUPPORT",
+      "verdict": "THREAT",
+      "rationale": "WildRiftFire Patch 7.3 guide lists pyke as a counter for lux in SUPPORT.",
+      "itemTriggers": [],
+      "gameplay": []
+    },
+    {
+      "playerChampion": "lux",
+      "enemyChampion": "nami",
+      "role": "SUPPORT",
+      "verdict": "THREAT",
+      "rationale": "WildRiftFire Patch 7.3 guide lists nami as a counter for lux in SUPPORT.",
+      "itemTriggers": [],
+      "gameplay": []
+    },
+    {
+      "playerChampion": "lux",
+      "enemyChampion": "karma",
+      "role": "SUPPORT",
+      "verdict": "THREAT",
+      "rationale": "WildRiftFire Patch 7.3 guide lists karma as a counter for lux in SUPPORT.",
+      "itemTriggers": [],
+      "gameplay": []
+    },
+    {
+      "playerChampion": "sett",
+      "enemyChampion": "renekton",
+      "role": "TOP",
+      "verdict": "THREAT",
+      "rationale": "WildRiftFire Patch 7.3 guide lists renekton as a counter for sett in TOP.",
+      "itemTriggers": [],
+      "gameplay": []
+    },
+    {
+      "playerChampion": "sett",
+      "enemyChampion": "mordekaiser",
+      "role": "TOP",
+      "verdict": "THREAT",
+      "rationale": "WildRiftFire Patch 7.3 guide lists mordekaiser as a counter for sett in TOP.",
+      "itemTriggers": [],
+      "gameplay": []
+    },
+    {
+      "playerChampion": "sett",
+      "enemyChampion": "aatrox",
+      "role": "TOP",
+      "verdict": "THREAT",
+      "rationale": "WildRiftFire Patch 7.3 guide lists aatrox as a counter for sett in TOP.",
+      "itemTriggers": [],
+      "gameplay": []
+    },
+    {
+      "playerChampion": "graves",
+      "enemyChampion": "rammus",
+      "role": "JUNGLE",
+      "verdict": "THREAT",
+      "rationale": "WildRiftFire Patch 7.3 guide lists rammus as a counter for graves in JUNGLE.",
+      "itemTriggers": [],
+      "gameplay": []
+    },
+    {
+      "playerChampion": "graves",
+      "enemyChampion": "amumu",
+      "role": "JUNGLE",
+      "verdict": "THREAT",
+      "rationale": "WildRiftFire Patch 7.3 guide lists amumu as a counter for graves in JUNGLE.",
+      "itemTriggers": [],
+      "gameplay": []
+    },
+    {
+      "playerChampion": "graves",
+      "enemyChampion": "aatrox",
+      "role": "JUNGLE",
+      "verdict": "THREAT",
+      "rationale": "WildRiftFire Patch 7.3 guide lists aatrox as a counter for graves in JUNGLE.",
+      "itemTriggers": [],
+      "gameplay": []
+    },
+    {
+      "playerChampion": "kennen",
+      "enemyChampion": "gnar",
+      "role": "TOP",
+      "verdict": "THREAT",
+      "rationale": "WildRiftFire Patch 7.3 guide lists gnar as a counter for kennen in TOP.",
+      "itemTriggers": [],
+      "gameplay": []
+    },
+    {
+      "playerChampion": "kennen",
+      "enemyChampion": "nasus",
+      "role": "TOP",
+      "verdict": "THREAT",
+      "rationale": "WildRiftFire Patch 7.3 guide lists nasus as a counter for kennen in TOP.",
+      "itemTriggers": [],
+      "gameplay": []
+    },
+    {
+      "playerChampion": "kennen",
+      "enemyChampion": "wukong",
+      "role": "TOP",
+      "verdict": "THREAT",
+      "rationale": "WildRiftFire Patch 7.3 guide lists wukong as a counter for kennen in TOP.",
+      "itemTriggers": [],
+      "gameplay": []
+    },
+    {
+      "playerChampion": "nunu-willump",
+      "enemyChampion": "lillia",
+      "role": "JUNGLE",
+      "verdict": "THREAT",
+      "rationale": "WildRiftFire Patch 7.3 guide lists lillia as a counter for nunu-willump in JUNGLE.",
+      "itemTriggers": [],
+      "gameplay": []
+    },
+    {
+      "playerChampion": "nunu-willump",
+      "enemyChampion": "evelynn",
+      "role": "JUNGLE",
+      "verdict": "THREAT",
+      "rationale": "WildRiftFire Patch 7.3 guide lists evelynn as a counter for nunu-willump in JUNGLE.",
+      "itemTriggers": [],
+      "gameplay": []
+    },
+    {
+      "playerChampion": "nunu-willump",
+      "enemyChampion": "morgana",
+      "role": "JUNGLE",
+      "verdict": "THREAT",
+      "rationale": "WildRiftFire Patch 7.3 guide lists morgana as a counter for nunu-willump in JUNGLE.",
+      "itemTriggers": [],
+      "gameplay": []
+    }
   ]
 }
