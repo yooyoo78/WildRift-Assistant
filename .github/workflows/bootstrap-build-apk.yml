@@ -83,14 +83,8 @@ jobs:
           assert set(manifest['files'])==expected_files
           for name in manifest['files']:
               obj=json.loads((root/name).read_text())
-              if name=='champions.json':
-                  assert obj['patch']=='7.2e-reference',name
-              else:
-                  assert obj['patch']==manifest['patch'],name
-              if name=='champions.json':
-                  assert obj['updatedAt']=='2026-09-16',name
-              else:
-                  assert obj['updatedAt']==manifest['updatedAt'],name
+              assert obj['patch']==manifest['patch'],name
+              assert obj['updatedAt']==manifest['updatedAt'],name
               records=obj.get('champions') or obj.get('items') or obj.get('runes') or obj.get('recommendations') or obj.get('matchups') or obj.get('rules') or obj.get('macroRules')
               if records is not None:
                   assert isinstance(records,list),name

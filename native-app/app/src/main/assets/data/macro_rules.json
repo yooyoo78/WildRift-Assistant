@@ -1,12 +1,56 @@
 {
-  "patch": "7.2e-reference",
-  "source": ["Wild Rift Core", "Wild Rift Guides"],
-  "updatedAt": "2026-09-16",
+  "patch": "7.3-reference",
+  "source": [
+    "Wild Rift Core",
+    "Wild Rift Guides"
+  ],
+  "updatedAt": "2026-09-22",
   "coverage": "rule-seed",
   "rules": [
-    {"id":"assassin-threat","triggers":["ASSASSIN"],"phase":"MID/LATE","advice":["Control flank vision.","Avoid isolated face-checks.","Keep key defensive cooldowns for dive windows."]},
-    {"id":"frontline-threat","triggers":["FRONTLINE"],"phase":"TEAMFIGHT","advice":["Do not tunnel on the frontline.","Play around target access and objective position."]},
-    {"id":"cc-threat","triggers":["CC"],"phase":"ALL","advice":["Track major CC cooldowns before contesting objectives.","Preserve cleanse/mitigation tools when available."]},
-    {"id":"healing-threat","triggers":["HEALING"],"phase":"TEAMFIGHT","advice":["Coordinate anti-heal timing before extended fights.","Prefer focused damage over low-value spread damage when possible."]}
+    {
+      "id": "assassin-threat",
+      "triggers": [
+        "ASSASSIN"
+      ],
+      "phase": "MID/LATE",
+      "advice": [
+        "Control flank vision.",
+        "Avoid isolated face-checks.",
+        "Keep key defensive cooldowns for dive windows."
+      ]
+    },
+    {
+      "id": "frontline-threat",
+      "triggers": [
+        "FRONTLINE"
+      ],
+      "phase": "TEAMFIGHT",
+      "advice": [
+        "Do not tunnel on the frontline.",
+        "Play around target access and objective position."
+      ]
+    },
+    {
+      "id": "cc-threat",
+      "triggers": [
+        "CC"
+      ],
+      "phase": "ALL",
+      "advice": [
+        "Track major CC cooldowns before contesting objectives.",
+        "Preserve cleanse/mitigation tools when available."
+      ]
+    },
+    {
+      "id": "healing-threat",
+      "triggers": [
+        "HEALING"
+      ],
+      "phase": "TEAMFIGHT",
+      "advice": [
+        "Coordinate anti-heal timing before extended fights.",
+        "Prefer focused damage over low-value spread damage when possible."
+      ]
+    }
   ]
 }

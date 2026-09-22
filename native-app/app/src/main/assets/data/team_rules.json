@@ -1,16 +1,117 @@
 {
-  "patch": "7.2e-reference",
-  "source": ["Wild Rift Core", "WildRiftFire", "Wild Rift Guides"],
-  "updatedAt": "2026-09-16",
+  "patch": "7.3-reference",
+  "source": [
+    "Wild Rift Core",
+    "WildRiftFire",
+    "Wild Rift Guides"
+  ],
+  "updatedAt": "2026-09-22",
   "coverage": "rule-seed",
   "rules": [
-    {"id":"anti-heal","when":["HEALING"],"priority":10,"items":["ANTI_HEAL"],"plan":["Reduce effective healing before committing extended fights."]},
-    {"id":"anti-shield","when":["SHIELDS"],"priority":10,"items":["ANTI_SHIELD"],"plan":["Time shield-breaking effects before burst windows."]},
-    {"id":"magic-burst","when":["MAGIC_BURST"],"priority":8,"items":["MR"],"plan":["Respect magic burst windows and preserve defensive cooldowns."]},
-    {"id":"physical-burst","when":["PHYSICAL_BURST"],"priority":8,"items":["ARMOR"],"plan":["Reduce physical burst exposure before entering fights."]},
-    {"id":"frontline","when":["FRONTLINE","ARMOR_STACK"],"priority":8,"items":["ARMOR_PEN"],"plan":["Do not spend all cooldowns on the frontline without a clear objective."]},
-    {"id":"cc","when":["CC"],"priority":6,"items":["CC_RESIST"],"plan":["Track major crowd-control cooldowns before committing."]},
-    {"id":"assassin","when":["ASSASSIN"],"priority":5,"items":["REVIVE"],"plan":["Respect flank angles and preserve defensive tools for dive timing."]},
-    {"id":"mixed-damage","when":["MIXED_DAMAGE"],"priority":2,"items":["HP"],"plan":["Avoid over-investing in one resistance type when threats are mixed."]}
+    {
+      "id": "anti-heal",
+      "when": [
+        "HEALING"
+      ],
+      "priority": 10,
+      "items": [
+        "ANTI_HEAL"
+      ],
+      "plan": [
+        "Reduce effective healing before committing extended fights."
+      ]
+    },
+    {
+      "id": "anti-shield",
+      "when": [
+        "SHIELDS"
+      ],
+      "priority": 10,
+      "items": [
+        "ANTI_SHIELD"
+      ],
+      "plan": [
+        "Time shield-breaking effects before burst windows."
+      ]
+    },
+    {
+      "id": "magic-burst",
+      "when": [
+        "MAGIC_BURST"
+      ],
+      "priority": 8,
+      "items": [
+        "MR"
+      ],
+      "plan": [
+        "Respect magic burst windows and preserve defensive cooldowns."
+      ]
+    },
+    {
+      "id": "physical-burst",
+      "when": [
+        "PHYSICAL_BURST"
+      ],
+      "priority": 8,
+      "items": [
+        "ARMOR"
+      ],
+      "plan": [
+        "Reduce physical burst exposure before entering fights."
+      ]
+    },
+    {
+      "id": "frontline",
+      "when": [
+        "FRONTLINE",
+        "ARMOR_STACK"
+      ],
+      "priority": 8,
+      "items": [
+        "ARMOR_PEN"
+      ],
+      "plan": [
+        "Do not spend all cooldowns on the frontline without a clear objective."
+      ]
+    },
+    {
+      "id": "cc",
+      "when": [
+        "CC"
+      ],
+      "priority": 6,
+      "items": [
+        "CC_RESIST"
+      ],
+      "plan": [
+        "Track major crowd-control cooldowns before committing."
+      ]
+    },
+    {
+      "id": "assassin",
+      "when": [
+        "ASSASSIN"
+      ],
+      "priority": 5,
+      "items": [
+        "REVIVE"
+      ],
+      "plan": [
+        "Respect flank angles and preserve defensive tools for dive timing."
+      ]
+    },
+    {
+      "id": "mixed-damage",
+      "when": [
+        "MIXED_DAMAGE"
+      ],
+      "priority": 2,
+      "items": [
+        "HP"
+      ],
+      "plan": [
+        "Avoid over-investing in one resistance type when threats are mixed."
+      ]
+    }
   ]
 }
