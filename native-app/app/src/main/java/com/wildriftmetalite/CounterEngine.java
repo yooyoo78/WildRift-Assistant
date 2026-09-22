@@ -52,9 +52,6 @@ public final class CounterEngine {
         public final String category;
 
         public ItemData(String name, String tags, String category) {
-            this.name = name; this.tags = tags == null ? "" : tags; this.category = category == null ? "" : category.toUpperCase(Locale.ROOT);
-        }
-        public ItemData(String name, String tags, String category) {
             this.name = name;
             this.tags = tags == null ? "" : tags;
             this.category = category == null ? "" : category.toUpperCase(Locale.ROOT);
