@@ -49,7 +49,11 @@ public final class CounterEngine {
     public static final class ItemData {
         public final String name;
         public final String tags;
+        public final String category;
 
+        public ItemData(String name, String tags, String category) {
+            this.name = name; this.tags = tags == null ? "" : tags; this.category = category == null ? "" : category.toUpperCase(Locale.ROOT);
+        }
         public ItemData(String name, String tags) {
             this.name = name;
             this.tags = tags == null ? "" : tags;
@@ -73,7 +77,7 @@ public final class CounterEngine {
         List<String[]> rows = new ArrayList<>();
         for (ItemData item : itemCatalog) {
             if (item == null) continue;
-            rows.add(new String[]{item.name, item.tags});
+            rows.add(new String[]{item.name, item.tags, item.category});
         }
         return rank(rows, profile, profile.mixedDamage);
     }
@@ -86,6 +90,7 @@ public final class CounterEngine {
         for (String[] row : itemCatalog) {
             if (row == null || row.length < 2) continue;
             Candidate c = new Candidate(row[0], row[1]);
+            String category = row.length > 2 ? row[2].toUpperCase(Locale.ROOT) : "";
             if (profile.healing && c.tags.contains("ANTI_HEAL")) c.add(10, "ANTI_HEAL");
             if (profile.shields && c.tags.contains("ANTI_SHIELD")) c.add(10, "ANTI_SHIELD");
             if (profile.magicBurst && c.tags.contains("MR")) c.add(8, "MR");
@@ -97,6 +102,8 @@ public final class CounterEngine {
             if (profile.autoAttack && c.tags.contains("ARMOR")) c.add(4, "ANTI_AUTO");
             if (profile.frontline && c.tags.contains("ARMOR_PEN")) c.add(3, "FRONTLINE");
             if (profile.mixedDamage && c.tags.contains("HP")) c.add(2, "MIXED_DAMAGE");
+            if ("PHYSICAL".equals(category) && profile.magicBurst && !profile.physicalBurst) c.add(-1.5, "DAMAGE_PROFILE_MISMATCH");
+            if ("PHYSICAL".equals(category) && profile.physicalBurst) c.add(1.0, "PHYSICAL_PROFILE");
             if (c.score == 0) c.add(0.5, "SITUATIONAL");
             result.add(c);
         }
